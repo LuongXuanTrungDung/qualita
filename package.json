@@ -24,12 +24,20 @@
         "url": "https://github.com/LuongXuanTrungDung/showcase-v2/issues"
     },
     "homepage": "https://github.com/LuongXuanTrungDung/showcase-v2#readme",
+    "browserslist": [
+        ">0.3%",
+        "not ie 11",
+        "not dead",
+        "not op_mini all"
+    ],
     "dependencies": {
-        "bootstrap": "^5.1.3",
+        "@fortawesome/fontawesome-svg-core": "^6.1.1",
+        "@fortawesome/free-regular-svg-icons": "^6.1.1",
+        "@fortawesome/free-solid-svg-icons": "^6.1.1",
+        "@fortawesome/react-fontawesome": "^0.1.18",
         "next": "^12.1.6",
         "next-plugin-preact": "^3.0.6",
         "react": "^18.1.0",
-        "react-bootstrap": "^2.4.0",
         "react-dom": "^18.1.0"
     },
     "devDependencies": {
@@ -37,9 +45,14 @@
         "@types/react": "^18.0.9",
         "@typescript-eslint/eslint-plugin": "^5.22.0",
         "@typescript-eslint/parser": "^5.22.0",
+        "autoprefixer": "^10.4.7",
         "eslint": "^8.15.0",
         "eslint-config-next": "^12.1.6",
         "eslint-import-resolver-typescript": "^2.7.1",
+        "postcss": "^8.4.13",
+        "postcss-import": "^14.1.0",
+        "sass": "^1.51.0",
+        "tailwindcss": "^3.0.24",
         "typescript": "^4.6.4"
     }
 }

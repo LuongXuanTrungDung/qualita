@@ -1,13 +1,7 @@
-module.exports = {
-    webpack: (config, { dev, isServer }) => {
-        if (!dev && !isServer) {
-            Object.assign(config.resolve.alias, {
-                react: 'preact/compat',
-                'react-dom/test-utils': 'preact/test-utils',
-                'react-dom': 'preact/compat',
-            });
-        }
+const path = require('path');
 
-        return config;
-    },
+module.exports = {
+    sassOptions: {
+        includePaths: [path.join(__dirname, 'assets')],
+    }
 };
