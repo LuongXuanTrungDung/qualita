@@ -9,7 +9,7 @@ module.exports = {
                 "light": "#0080FF",
                 "dark": "#191970",
                 "fade": "#87D3F8",
-                "shade": "#4997D0"
+                "shade": "#4D4DFF"
             },
         },
     },
