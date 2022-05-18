@@ -21,9 +21,15 @@ export default function Header() {
             <nav className="flex">
                 <ul className="flex mr-auto py-2">
                     <li className="mr-2">
-                        <a href="/">
-                            <img src={`/logo-${theme === 'dark' ? 'light' : 'dark'}.svg`} className="w-6 h-6" alt="Logo" />
-                        </a>
+                        {theme === 'dark' ? (
+                            <a href="/">
+                                <img src="/logo-dark.svg" alt="Logo" className="w-6 h-6" />
+                            </a>
+                        ) : (
+                            <a href="/">
+                                <img src="/logo-light.svg" alt="Logo" className="w-6 h-6" />
+                            </a>
+                        )}
                     </li>
                     {pages.map((page, index) => (
                         <li key={index} className="mx-2">
