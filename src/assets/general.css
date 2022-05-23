@@ -22,8 +22,20 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: bold;
+    @apply font-bold;
     font-family: "Montserrat", sans-serif;
+}
+
+h3 {
+    @apply text-lg;
+}
+
+h2 {
+    @apply text-xl;
+}
+
+h1 {
+    @apply text-2xl;
 }
 
 a {

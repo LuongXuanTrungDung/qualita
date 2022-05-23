@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 
 import Header from '@src/partials/header';
 import Footer from '@src/partials/footer';
 import Carousel from '@src/partials/carousel';
+import Contact from '@src/partials/contact';
 
 export default function Home() {
     return (
@@ -29,6 +30,7 @@ export default function Home() {
                 <div className="col-start-3 row-span-3 bg-blue-300"></div>
             </main>
             <Footer />
+            <Contact />
         </React.Fragment>
     );
 }
