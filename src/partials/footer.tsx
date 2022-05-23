@@ -21,7 +21,7 @@ export default function Footer() {
                 <ul className="flex mr-auto py-2">
                     {contactInfo.map((contact, index) => (
                         <li key={index} className="mr-4">
-                            <a href="/" className="hover:text-shade dark:hover:text-shade">
+                            <a href="" className="hover:text-shade dark:hover:text-shade">
                                 <i className={"mr-1 text-lg fas " + contact.icon}></i>
                                 <span className="ml-1">{contact.info}</span>
                             </a>
