@@ -1,0 +1,46 @@
+[
+    {
+        "title": "Hệ thống server và CSDL - VNA Education (v1)",
+        "image": "vna-education.png",
+        "tags": [
+            "NestJS",
+            "NodeJS",
+            "MongoDB"
+        ],
+        "desc": "Hệ thống giám sát chất lượng giảng dạy của giáo viên, dựa trên các đánh giá của học sinh. Hệ thống được xây dựng hướng đến đối tượng là các trường THPT và THCS."
+    },
+    {
+        "title": "Thiết kế front-end - Mentor",
+        "image": "mentor.png",
+        "tags": [
+            "NodeJS",
+            "Bootstrap 5",
+            "Angular",
+            "Dịch vụ"
+        ],
+        "desc": "Web dịch vụ của 1 trung tâm giáo dục giả định, trọng tâm là tính năng làm quiz. Thiết kế dựa trên template cùng tên tải về từ BootstrapMade."
+    },
+    {
+        "title": "Thiết kế front-end và server - Mâm xôi đỏ",
+        "image": "mam-xoi-do.png",
+        "tags": [
+            "PHP",
+            "Bootstrap 4",
+            "JQuery",
+            "Bán hàng"
+        ],
+        "desc": "Web bán hàng của 1 tiệm bánh ngọt giả định với các chức năng đặt hàng, lọc mặt hàng, thanh toán và quản trị. Thiết kế nguyên bản, sử dụng Bootstrap 4."
+    },
+    {
+        "title": "Thiết kế front-end - Showcase (v1)",
+        "image": "showcase.png",
+        "tags": [
+            "NuxtJS 2",
+            "TailwindCSS",
+            "NodeJS",
+            "Vue 2",
+            "Cá nhân"
+        ],
+        "desc": "Website cá nhân phục vụ mục đích thể hiện bản thân về những gì đã làm được. Thiết kế nguyên bản. Sử dụng dịch vụ GitHub Page để host. Hình ảnh trong Banner thuộc về Ian Slater trên Pexels."
+    }
+]

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ThemeContext } from '@src/contexts/themeContext';
+import Link from 'next/link';
 
 export default function Header() {
     const { theme, setTheme } = useContext(ThemeContext);
@@ -21,19 +22,17 @@ export default function Header() {
             <nav className="flex">
                 <ul className="flex mr-auto py-2">
                     <li className="mr-2">
-                        {theme === 'dark' ? (
-                            <a href="/">
+                        <Link href="/">
+                            {theme === 'dark' ? (
                                 <img src="/logo-dark.svg" alt="Logo" className="w-6 h-6" />
-                            </a>
-                        ) : (
-                            <a href="/">
+                            ) : (
                                 <img src="/logo-light.svg" alt="Logo" className="w-6 h-6" />
-                            </a>
-                        )}
+                            )}
+                        </Link>
                     </li>
                     {pages.map((page, index) => (
                         <li key={index} className="mx-2">
-                            <a href="/" className="hover:bg-shade dark:hover:bg-shade rounded-md p-3">{page}</a>
+                            <Link href="/" className="hover:bg-shade dark:hover:bg-shade rounded-md p-3">{page}</Link>
                         </li>
                     ))}
                 </ul>
@@ -42,7 +41,7 @@ export default function Header() {
                         <div className="relative">
                             <input type="checkbox" ref={themeToggle} id="themeToggle" checked={isToggled} className="sr-only peer" onChange={() => setIsToggled(!isToggled)} />
                             <div className="peer-checked:bg-light bg-dark w-14 h-8 rounded-full">
-                                <i className={"text-white absolute left-2 top-2 w-4 h-4 fas " + (isToggled ? "fa-moon" : "fa-sun")}></i>
+                                <i className={"text-white absolute left-2 top-2 w-4 h-4 fas " + (isToggled ? "fa-moon" : "fa-sun translate-x-6")}></i>
                             </div>
                             <div className="peer-checked:translate-x-full absolute bg-white flex w-6 h-6 left-1 top-1 flex items-center justify-center rounded-full transition"></div>
                         </div>
