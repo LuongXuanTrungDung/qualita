@@ -7,7 +7,7 @@
         "dev": "next",
         "build": "next build && next export",
         "start": "next start",
-        "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\""
+        "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --fix"
     },
     "repository": {
         "type": "git",
@@ -31,8 +31,10 @@
         "not op_mini all"
     ],
     "dependencies": {
+        "eslint-config-prettier": "^8.5.0",
         "next": "^12.1.6",
         "next-plugin-preact": "^3.0.6",
+        "prettier": "^2.6.2",
         "react": "^18.1.0",
         "react-dom": "^18.1.0"
     },
