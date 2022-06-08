@@ -7,7 +7,7 @@
 *,
 *:hover {
     box-sizing: border-box;
-    transition: 0.25s;
+    transition: 0.125s;
 }
 
 body {
