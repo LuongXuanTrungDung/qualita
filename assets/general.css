@@ -1,0 +1,23 @@
+*,
+*:hover {
+  transition: 0.125s;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+li {
+  list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
