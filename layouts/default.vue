@@ -1,11 +1,8 @@
 <template>
   <main>
-    <Header @toggleSideMenu="(status) => (sideMenuStatus = status)" />
+    <Header />
     <div class="flex">
-      <SideMenu
-        :is-shown="sideMenuStatus"
-        @toggleSideMenu="(status) => (sideMenuStatus = status)"
-      />
+      <SideMenu />
       <Nuxt />
     </div>
   </main>
@@ -15,7 +12,5 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class DefaultLayout extends Vue {
-  sideMenuStatus = false
-}
+export default class DefaultLayout extends Vue {}
 </script>

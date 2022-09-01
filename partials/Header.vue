@@ -2,7 +2,7 @@
   <header class="dark:bg-black dark:text-white">
     <nav class="flex text-center">
       <li class="p-4 mr-auto">
-        <button @click="$emit('toggleSideMenu', true)">
+        <button @click="$store.commit('toggleSideMenu')">
           <i class="fa-solid fa-bars text-xl"></i>
         </button>
       </li>
@@ -17,7 +17,7 @@
         </NuxtLink>
       </li>
       <li class="p-4 ml-auto">
-        <button class="w-8 h-8" @click="toggleDarkMode()">
+        <button class="w-8 h-8" @click="toggleDarkMode">
           <i
             v-if="$colorMode.value === 'dark'"
             class="fa-solid fa-moon text-xl"
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class Header extends Vue {
