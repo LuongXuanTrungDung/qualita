@@ -1,12 +1,12 @@
 <template>
   <header class="dark:bg-black dark:text-white">
     <nav class="flex text-center">
-      <li class="p-4 mr-auto">
+      <li class="p-6 mr-auto">
         <button @click="$store.commit('toggleSideMenu')">
           <i class="fa-solid fa-bars text-xl"></i>
         </button>
       </li>
-      <li class="p-4 mx-auto">
+      <li class="p-6 mx-auto">
         <NuxtLink to="/">
           <img
             v-if="$colorMode.value === 'dark'"
@@ -16,7 +16,7 @@
           <img v-else src="Logo (Light).svg" class="w-8 h-8" />
         </NuxtLink>
       </li>
-      <li class="p-4 ml-auto">
+      <li class="p-6 ml-auto">
         <button class="w-8 h-8" @click="toggleDarkMode">
           <i
             v-if="$colorMode.value === 'dark'"

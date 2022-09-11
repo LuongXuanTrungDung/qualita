@@ -1,12 +1,12 @@
 <template>
   <aside :class="[isShown ? menuShown : menuHidden]">
     <nav class="flex flex-col">
-      <li class="p-4 mb-16 mx-1">
+      <li class="p-6 mb-16 mx-1">
         <button @click="$store.commit('toggleSideMenu')">
           <i class="fas fa-times text-xl"></i>
         </button>
       </li>
-      <nav class="flex p-4">
+      <nav class="flex p-6">
         <ul class="flex flex-col mr-8">
           <li
             v-for="(tab, index) in tabs"
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class SideMenu extends Vue {
@@ -79,7 +79,7 @@ export default class SideMenu extends Vue {
     'h-full bg-gray-900 text-white fixed top-0 left-0 z-1 overflow-hidden w-full'
 
   get isShown() {
-    return this.$store.state.sideMenuShown;
+    return this.$store.state.sideMenuShown
   }
 }
 </script>

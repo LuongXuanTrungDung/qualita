@@ -11,6 +11,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // animation: {
+      //   fade: 'fade 0.25s ease-in-out',
+      // },
+      // keyframes: (theme) => ({
+      //   fade: {
+      //     '0%': { opacity: theme('opacity-50') },
+      //     '100%': { opacity: theme('opacity-0') },
+      //   },
+      // }),
+
       colors: {
         main: '#007fff',
         // 'shade': '#00bfff',
