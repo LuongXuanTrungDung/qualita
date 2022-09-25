@@ -1,9 +1,9 @@
 <template>
-  <main class="h-screen dark:bg-black">
+  <main class="dark:bg-black">
     <Header />
-    <div class="flex">
+    <div class="flex h-full">
       <SideMenu />
-      <Nuxt style="height: calc(100vh - 5rem)" />
+      <Nuxt />
     </div>
   </main>
 </template>

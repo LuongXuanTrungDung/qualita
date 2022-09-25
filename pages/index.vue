@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="flex flex-col">
     <Banner />
+    <Carousel />
   </div>
 </template>
 

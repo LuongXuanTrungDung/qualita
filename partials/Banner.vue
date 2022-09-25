@@ -1,24 +1,26 @@
 <template>
-  <section
-    style="background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),url('/home-parallax.jpg');"
-    class="w-full h-full bg-fixed bg-center bg-no-repeat bg-cover relative"
-  >
-    <div class="px-6 my-1/2 h-full flex justify-center items-center">
-      <div class="text-center dark:text-white">
-        <img src="/portrait.jpg" class="w-40 h-40 my-4 mx-auto rounded-full" />
-        <h1 class="my-4 text-3xl font-bold" data-aos="fade-up">Xin chào, tôi là Dũng</h1>
-        <p class="my-4" data-aos="fade-up">
-          Tôi là một nhà phát triển web full-stack đến từ Thành phố Hồ Chí Minh,
-          Việt Nam, với mong muốn tạo ra các sản phẩm được thiết kế khoa học và
-          có tính nghệ thuật, để mang đến những trải nghiệm tiện lợi và hữu ích
-          nhất cho người sử dụng.
-        </p>
-        <NuxtLink
-          data-aos="fade-up"
-          to="/about"
-          class="my-4 rounded-md py-2 px-4 mx-auto bg-main hover:text-white hover:bg-black"
-          >Tìm hiểu thêm</NuxtLink
-        >
+  <section class="my-12 mx-18 h-1/2">
+    <div
+      style="height: 32rem; background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),url('/home-parallax.jpg');"
+      class="w-full bg-fixed bg-center bg-no-repeat bg-cover relative"
+    >
+      <div class="px-6 my-1/2 h-full flex justify-center items-center">
+        <div class="text-center text-white">
+          <img src="/portrait.jpg" class="w-40 h-40 mb-4 mx-auto rounded-full" />
+          <h1 class="my-4 text-3xl font-bold" data-aos="fade-up">Xin chào, tôi là Dũng</h1>
+          <p class="my-4" data-aos="fade-up">
+            Tôi là một nhà phát triển web full-stack đến từ Thành phố Hồ Chí Minh,
+            Việt Nam, với mong muốn tạo ra các sản phẩm được thiết kế khoa học và
+            có tính nghệ thuật, để mang đến những trải nghiệm tiện lợi và hữu ích
+            nhất cho người sử dụng.
+          </p>
+          <NuxtLink
+            data-aos="fade-up"
+            to="/about"
+            class="mt-4 rounded-md py-2 px-4 mx-auto bg-main hover:text-white hover:bg-black"
+            >Tìm hiểu thêm</NuxtLink
+          >
+        </div>
       </div>
     </div>
   </section>
