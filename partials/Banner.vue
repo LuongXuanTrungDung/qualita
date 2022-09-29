@@ -1,5 +1,5 @@
 <template>
-  <section class="my-12 mx-18 h-1/2">
+  <section class="my-12 h-1/2">
     <div
       style="height: 32rem; background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),url('/home-parallax.jpg');"
       class="w-full bg-fixed bg-center bg-no-repeat bg-cover relative"

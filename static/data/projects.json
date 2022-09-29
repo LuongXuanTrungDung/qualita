@@ -60,52 +60,5 @@
       "IT Intern Project"
     ],
     "text": "Hệ thống giám sát chất lượng giảng dạy của giáo viên, dựa trên các đánh giá của học sinh. Hệ thống được xây dựng hướng đến đối tượng là các trường THPT và THCS."
-  },
-  {
-    "images": "nda.png",
-    "title": "TMA Solutions",
-    "roles": [
-      "Front-end Developer"
-    ],
-    "tags": [
-      "ReactJS",
-      "Under NDA",
-      "Company Project"
-    ],
-    "text": "Dự án outsource từ khách hàng của TMA Solutions"
-  },
-  {
-    "images": "nda.png",
-    "title": "Saigon AI - 1",
-    "roles": [
-      "Front-end Developer",
-      "Back-end Developer",
-      "Unit Tester"
-    ],
-    "tags": [
-      "JQuery",
-      "Flask",
-      "Python",
-      "PostgreSQL",
-      "Under NDA",
-      "Company Project"
-    ],
-    "text": "Dự án outsource từ khách hàng của Saigon AI"
-  },
-  {
-    "images": "nda.png",
-    "title": "Saigon AI - 2",
-    "roles": [
-      "Back-end Developer"
-    ],
-    "tags": [
-      "JQuery",
-      "FastAPI",
-      "Python",
-      "PostgreSQL",
-      "Under NDA",
-      "Company Project"
-    ],
-    "text": "Dự án outsource từ khách hàng của Saigon AI"
   }
 ]
