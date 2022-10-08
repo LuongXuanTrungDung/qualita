@@ -61,7 +61,7 @@ export default class SideMenu extends Vue {
 
   info = [
     { type: 'Email', details: 'luongxuantrungdung211@gmail.com' },
-    { type: 'Số điện thoại', details: '(+84) 093-436-8160' },
+    { type: 'Số điện thoại (Zalo và MoMo)', details: '(+84) 093-436-8160' },
   ]
 
   socialMedia = [

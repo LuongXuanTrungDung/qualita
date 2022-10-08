@@ -2,63 +2,29 @@
   {
     "images": "works/mam-xoi-do.png",
     "title": "Mâm xôi đỏ",
-    "roles": [
-      "Front-end Developer",
-      "Back-end Developer"
-    ],
-    "tags": [
-      "Bootstrap 4",
-      "JQuery",
-      "MySQL",
-      "Study Project"
-    ],
+    "roles": ["Front-end Developer", "Back-end Developer"],
+    "tags": ["Bootstrap 4", "JQuery", "MySQL", "Study Project"],
     "text": "Web bán hàng của 1 tiệm bánh ngọt và đồ uống giả định với các chức năng đặt hàng, lọc mặt hàng, thanh toán và quản trị. Thiết kế nguyên bản, sử dụng Bootstrap 4 và JQuery."
   },
   {
     "images": "works/mentor.png",
     "title": "Mentor",
-    "roles": [
-      "Front-end Developer"
-    ],
-    "tags": [
-      "Angular.io",
-      "Bootstrap 5",
-      "NodeJS",
-      "Study Project"
-    ],
+    "roles": ["Front-end Developer"],
+    "tags": ["Angular.io", "Bootstrap 5", "NodeJS", "Study Project"],
     "text": "Web dịch vụ của 1 trung tâm giáo dục giả định, trọng tâm là tính năng làm quiz. Thiết kế dựa trên template cùng tên tải về từ BootstrapMade."
   },
   {
     "images": "works/showcase.png",
     "title": "Showcase v1",
-    "roles": [
-      "Front-end Developer",
-      "Project Owner"
-    ],
-    "tags": [
-      "NuxtJS",
-      "VueJS",
-      "NodeJS",
-      "Typescript",
-      "Personal Project"
-    ],
+    "roles": ["Front-end Developer", "Project Owner"],
+    "tags": ["NuxtJS", "VueJS", "NodeJS", "Typescript", "Personal Project"],
     "text": "Website cá nhân phục vụ mục đích thể hiện bản thân về những gì đã làm được, phiên bản 1. Thiết kế nguyên bản. Sử dụng dịch vụ GitHub Page để host. Hình ảnh trong Banner thuộc về Ian Slater trên Pexels."
   },
   {
     "images": "works/vna-education.png",
     "title": "VNA Education",
-    "roles": [
-      "Back-end Developer",
-      "Database Manager",
-      "Database Designer"
-    ],
-    "tags": [
-      "NestJS",
-      "Typescript",
-      "NodeJS",
-      "MongoDB",
-      "IT Intern Project"
-    ],
+    "roles": ["Back-end Developer", "Database Manager", "Database Designer"],
+    "tags": ["NestJS", "Typescript", "NodeJS", "MongoDB", "IT Intern Project"],
     "text": "Hệ thống giám sát chất lượng giảng dạy của giáo viên, dựa trên các đánh giá của học sinh. Hệ thống được xây dựng hướng đến đối tượng là các trường THPT và THCS."
   }
 ]

@@ -22,20 +22,15 @@ module.exports = {
       // }),
 
       spacing: {
-        '9': '2.25rem',
-        '18': '4.5rem',
+        9: '2.25rem',
+        18: '4.5rem',
       },
 
       margin: {
-        '9': '2.25rem',
-        '18': '4.5rem',
+        9: '2.25rem',
+        18: '4.5rem',
       },
 
-      colors: {
-        main: '#007fff',
-        // 'shade': '#00bfff',
-        // 'fade': '#87cefa'
-      },
       zIndex: {
         1: '1',
       },

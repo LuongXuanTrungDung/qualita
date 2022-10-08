@@ -1,5 +1,7 @@
 <template>
-  <header class="dark:bg-black dark:text-white">
+  <header
+    class="dark:bg-black dark:text-white sticky top-0 z-1 dark:bg-black bg-white"
+  >
     <nav class="flex text-center">
       <li class="p-6 mr-auto">
         <button @click="$store.commit('toggleSideMenu')">
