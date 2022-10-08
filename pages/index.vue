@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col">
     <Banner />
+    <Skills />
+    <Partnership />
     <Carousel />
     <Contact />
   </div>

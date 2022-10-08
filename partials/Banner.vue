@@ -1,14 +1,7 @@
 <template>
   <section class="my-12 h-1/2">
     <div
-      style="
-        height: 32rem;
-        background-image: linear-gradient(
-            rgba(0, 0, 0, 0.65),
-            rgba(0, 0, 0, 0.65)
-          ),
-          url('/home-parallax.jpg');
-      "
+      :style="banner"
       class="w-full bg-fixed bg-center bg-no-repeat bg-cover relative"
     >
       <div class="px-6 my-1/2 h-full flex justify-center items-center">
@@ -45,5 +38,7 @@ import aosMixin from '@/mixins/aos'
 @Component({
   mixins: [aosMixin],
 })
-export default class Banner extends Vue {}
+export default class Banner extends Vue {
+  banner = "height: 30rem; background-image: linear-gradient(rgba(0, 0, 0, 0.65),rgba(0, 0, 0, 0.65)),url('/home-parallax.jpg');"
+}
 </script>

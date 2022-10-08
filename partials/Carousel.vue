@@ -54,7 +54,7 @@
           </button>
         </div>
       </div>
-      <div class="w-full my-12 flex items-center justify-center">
+      <div class="w-full mt-12 flex items-center justify-center">
         <button
           v-for="(slide, index) in projectSlides"
           :key="index"
@@ -67,29 +67,12 @@
         ></button>
       </div>
     </div>
-    <div class="my-12 text-center" data-aos="fade-up">
-      <h4 class="text-xl font-bold dark:text-white">Các đối tác của tôi</h4>
-      <div class="h-1 mt-2 bg-blue-500 mx-auto w-1/12"></div>
-    </div>
-    <div
-      class="mt-12 flex items-center justify-center dark:bg-gray-200"
-      data-aos="fade-up"
-    >
-      <div
-        v-for="(partner, index) in partnerImages"
-        :key="index"
-        class="h-24 mx-6 p-4"
-      >
-        <img :src="partner.image" :alt="partner.name" class="h-full" />
-      </div>
-    </div>
   </section>
 </template>
 
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
 import projects from '@/static/data/projects.json'
-import partners from '@/static/data/partners.json'
 import aosMixin from '@/mixins/aos'
 
 @Component({
@@ -97,7 +80,6 @@ import aosMixin from '@/mixins/aos'
 })
 export default class Carousel extends Vue {
   projectSlides = projects
-  partnerImages = partners
   currentSlide = 0
 
   prevSlide() {

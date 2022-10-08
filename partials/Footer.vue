@@ -1,11 +1,11 @@
 <template>
-  <header class="dark:bg-black dark:text-white">
+  <footer class="dark:bg-black dark:text-white">
     <nav class="p-6 flex text-center">
       <li class="ml-auto">
         <span class="text-sm text-gray-500">MIT @2022</span>
       </li>
     </nav>
-  </header>
+  </footer>
 </template>
 
 <script>
