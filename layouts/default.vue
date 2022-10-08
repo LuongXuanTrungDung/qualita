@@ -5,6 +5,7 @@
       <SideMenu />
       <Nuxt />
     </div>
+    <Footer />
   </main>
 </template>
 

@@ -2,6 +2,7 @@
   <div class="flex flex-col">
     <Banner />
     <Carousel />
+    <Contact />
   </div>
 </template>
 
