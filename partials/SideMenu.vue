@@ -6,34 +6,32 @@
           <i class="fas fa-times text-xl"></i>
         </button>
       </li>
-      <nav class="flex p-6">
-        <ul class="flex flex-col mr-8">
+      <nav class="flex flex-col md:flex-row p-6">
+        <ul class="flex flex-col md:mr-8 mr-0 mb-8 md:mb-0">
           <li
             v-for="(tab, index) in tabs"
             :key="index"
             :class="[index == 0 ? 'mb-4' : 'my-4']"
           >
-            <NuxtLink :to="tab.url" class="hover:text-main">
+            <NuxtLink :to="tab.url" class="hover:text-blue-500">
               <h3 class="text-2xl">{{ tab.text }}</h3>
             </NuxtLink>
           </li>
         </ul>
-        <ul class="flex flex-col ml-8">
+        <ul class="flex flex-col md:ml-8 ml-0 mt-8 md:mt-0">
           <li
             v-for="(i, index) in info"
             :key="index"
             :class="[index == 0 ? 'mb-3' : 'my-3']"
           >
             <h3 class="text-2xl mb-2">{{ i.type }}</h3>
-            <a class="ml-4 text-lg hover:text-main" href="">{{ i.details }}</a>
+            <a class="ml-4 text-lg hover:text-blue-500" href="">{{ i.details }}</a>
           </li>
           <li class="my-4 flex">
             <a
               v-for="(soc, index) in socialMedia"
               :key="index"
-              :class="[
-                index == 0 ? 'mr-4 hover:text-main' : 'mx-4 hover:text-main',
-              ]"
+              :class="'hover:text-blue-500 ' + [index == 0 ? 'mr-4' : 'mx-4']"
               :href="soc.link"
             >
               <i :class="'fa-brands text-2xl ' + soc.icon"></i>
@@ -53,8 +51,7 @@ export default class SideMenu extends Vue {
   tabs = [
     { text: 'Trang chủ', url: '/' },
     { text: 'Giới thiệu', url: 'about' },
-    { text: 'Chuyên môn', url: 'expertise' },
-    // { text: 'Tin tức', url: 'news' },
+    // { text: 'Blog', url: 'blog' },
     { text: 'Sản phẩm', url: 'works' },
     { text: 'Liên hệ', url: 'contact' },
   ]

@@ -6,35 +6,31 @@
     </div>
     <form method="post" class="dark:text-white">
       <div class="flex mb-4">
-        <div class="w-1/2 mr-4 flex flex-col">
+        <div class="w-1/2 mr-4 flex flex-col" data-aos="fade-up">
           <input
             type="text"
             placeholder="Tên"
             class="mb-4 p-2 bg-gray-200 dark:bg-gray-800 focus:bg-transparent outline-none"
-            data-aos="fade-up"
           />
           <input
             type="email"
             placeholder="Email"
             class="my-4 p-2 bg-gray-200 dark:bg-gray-800 focus:bg-transparent outline-none"
-            data-aos="fade-up"
           />
           <input
             type="text"
             placeholder="Chủ đề"
             class="mt-4 p-2 bg-gray-200 dark:bg-gray-800 focus:bg-transparent outline-none"
-            data-aos="fade-up"
           />
         </div>
-        <div class="w-1/2 ml-4 flex flex-col">
+        <div class="w-1/2 ml-4 flex flex-col" data-aos="fade-up">
           <textarea
             placeholder="Nội dung"
             class="p-2 h-full bg-gray-200 dark:bg-gray-800 focus:bg-transparent outline-none resize-none"
-            data-aos="fade-up"
           ></textarea>
         </div>
       </div>
-      <div class="mt-8 flex items-center justify-center">
+      <div class="mt-8 flex items-center justify-center" data-aos="fade-up">
         <button
           type="submit"
           class="py-2 px-4 rounded-md bg-blue-500 text-white"
