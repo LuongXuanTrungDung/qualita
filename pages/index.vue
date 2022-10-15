@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <Banner />
-    <Skills />
+    <Skillset />
     <Partnership />
     <Carousel />
     <Contact />
