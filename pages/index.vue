@@ -4,7 +4,7 @@
     <Skillset />
     <Partnership />
     <Carousel />
-    <Contact />
+    <!-- <Contact /> -->
   </div>
 </template>
 
