@@ -2,9 +2,7 @@
   <div class="flex flex-col">
     <Banner />
     <Skillset />
-    <Partnership />
     <Carousel />
-    <!-- <Contact /> -->
   </div>
 </template>
 

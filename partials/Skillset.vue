@@ -8,13 +8,13 @@
       <div
         v-for="(skill, index) in skills"
         :key="index"
-        class="bg-gray-200 dark:bg-gray-800 rounded-r-md w-full flex"
+        class="bg-gray-200 dark:bg-gray-800 rounded-md py-4"
         data-aos="fade-up"
       >
-        <div class="rounded-l-md flex items-center justify-center mr-2 bg-gray-700 text-white dark:bg-gray-300 dark:text-black">
+        <div class="w-16 h-16 mb-4 mx-auto text-center bg-gray-800 text-white dark:bg-gray-200 dark:text-black rounded-full">
           <i :class="'fa-solid ' + skill.icon" class="text-xl p-4"></i>
         </div>
-        <div class="ml-2">
+        <div class="mt-4 text-center">
           <p v-for="(text, textKey) in skill.set" :key="textKey" class="my-2">
             {{ text }}
           </p>
