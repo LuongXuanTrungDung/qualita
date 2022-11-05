@@ -2,9 +2,7 @@
   <section class="my-12 mx-6">
     <div class="w-full relative flex flex-col">
       <div class="text-center mt-12" data-aos="fade-up">
-        <h4 class="text-xl font-bold dark:text-white">
-          Những gì tôi đã làm được
-        </h4>
+        <h4 class="text-xl font-bold dark:text-white">{{$t('carousel.heading')}}</h4>
         <div class="h-1 mt-2 bg-blue-500 mx-auto w-1/12"></div>
       </div>
       <div v-for="slide, index in projectSlides" :key="index" :class="'mt-12 ' + [currentSlide != index ? 'hidden' : '']">
@@ -29,9 +27,9 @@
           </button>
           </div>
           <h2 class="text-2xl dark:text-white mb-4">{{ slide.title }}</h2>
-          <p class="my-4 dark:text-white text-justify">{{ slide.text }}</p>
+          <p class="my-4 dark:text-white text-justify">{{ $t(`carousel.projects[${index}]`) }}</p>
           <p class="my-4">
-            <span class="dark:text-white mr-2">Vai trò:</span>
+            <span class="dark:text-white mr-2">{{$t('carousel.roles')}}:</span>
             <span v-for="(role, roleIndex) in slide.roles" :key="roleIndex" class="text-blue-500 mx-2">{{ role }}</span>
           </p>
           <div class="break-all mt-4">

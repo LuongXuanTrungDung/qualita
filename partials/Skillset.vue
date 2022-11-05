@@ -1,7 +1,7 @@
 <template>
   <section class="my-12 mx-6">
     <div class="text-center" data-aos="fade-up">
-      <h4 class="text-xl font-bold dark:text-white">Những gì tôi có thể làm</h4>
+      <h4 class="text-xl font-bold dark:text-white">{{$t('skillsets.heading')}}</h4>
       <div class="h-1 mt-2 bg-blue-500 mx-auto w-1/12"></div>
     </div>
     <div class="mt-12 grid grid-rows-1 md:grid-rows-2 grid-cols-1 md:grid-cols-2 gap-8 dark:text-white">
@@ -16,7 +16,7 @@
         </div>
         <div class="mt-4 text-center">
           <p v-for="(text, textKey) in skill.set" :key="textKey" class="my-2">
-            {{ text }}
+            {{ $t(`skillsets.sets[${index}][${textKey}]`) }}
           </p>
         </div>
       </div>

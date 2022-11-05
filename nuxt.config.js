@@ -1,3 +1,5 @@
+import { I18N } from './config'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -83,7 +85,7 @@ export default {
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: [['nuxt-i18n', I18N]],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
