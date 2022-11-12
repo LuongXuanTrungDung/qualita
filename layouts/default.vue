@@ -1,8 +1,8 @@
 <template>
-  <main class="dark:bg-black">
+  <main class="dark:bg-black dark:text-white">
     <Header />
     <div class="flex h-full">
-      <SideMenu />
+      <!-- <SideMenu /> -->
       <Nuxt />
     </div>
     <Footer />

@@ -1,7 +1,7 @@
 <template>
   <section class="my-12 mx-6 flex flex-col text-center">
     <div class="bg-gray-200 dark:bg-gray-800 w-52 h-52 rounded-full mb-6 flex items-center justify-center mx-auto" data-aos="fade-up">
-      <img src="/portrait.jpg" class="w-40 h-40 rounded-full" />
+      <img src="portrait.jpg" class="w-40 h-40 rounded-full" />
     </div>
     <div class="w-2/3 mx-auto mt-6 dark:text-white">
       <h1 class="mb-4 text-3xl font-bold" data-aos="fade-up">

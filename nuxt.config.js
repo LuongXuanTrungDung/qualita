@@ -3,6 +3,7 @@ import { I18N } from './config'
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+  mode: 'universal',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
