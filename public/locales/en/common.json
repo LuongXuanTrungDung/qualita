@@ -17,5 +17,7 @@
   "English": "English",
   "Vietnamese": "Vietnamese",
   "kanban": "Kanban board",
-  "taskList": "Task table"
+  "taskList": "Task table",
+  "copyright": "A product of ",
+  "authorName": "Adrian Luong"
 }
