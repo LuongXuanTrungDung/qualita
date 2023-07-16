@@ -1,0 +1,9 @@
+{
+  "task": {
+    "name": "Tên task",
+    "code": "Mã task",
+    "status": "Trạng thái",
+    "priority": "Mức ưu tiên",
+    "description": "Mô tả"
+  }
+}

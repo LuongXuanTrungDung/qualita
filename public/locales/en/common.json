@@ -1,0 +1,21 @@
+{
+  "setLanguage": "Select a language",
+  "importData": "Import data",
+  "exportData": "Export data",
+  "To-Do": "To Do",
+  "Doing": "Doing",
+  "Done": "Done",
+  "Create": "Create",
+  "Edit": "Edit",
+  "Delete": "Delete",
+  "Cancel": "Cancel",
+  "Details": "Details",
+  "Settings": "Settings",
+  "Overview": "Overview",
+  "lightMode": "Light mode",
+  "darkMode": "Dark mode",
+  "English": "English",
+  "Vietnamese": "Vietnamese",
+  "kanban": "Kanban board",
+  "taskList": "Task table"
+}

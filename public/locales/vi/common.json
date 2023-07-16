@@ -1,0 +1,21 @@
+{
+  "setLanguage": "Chọn ngôn ngữ",
+  "importData": "Nhập dữ liệu",
+  "exportData": "Xuất dữ liệu",
+  "To-Do": "Định làm",
+  "Doing": "Đang làm",
+  "Done": "Đã làm",
+  "Create": "Tạo",
+  "Edit": "Sửa",
+  "Delete": "Xoá",
+  "Cancel": "Huỷ",
+  "Details": "Chi tiết",
+  "Settings": "Tuỳ chỉnh",
+  "Overview": "Tổng quan",
+  "lightMode": "Chế độ sáng",
+  "darkMode": "Chế độ tối",
+  "English": "Tiếng Anh",
+  "Vietnamese": "Tiếng Việt",
+  "kanban": "Bảng Kanban",
+  "taskList": "Danh sách task"
+}

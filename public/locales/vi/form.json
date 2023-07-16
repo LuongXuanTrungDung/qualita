@@ -1,0 +1,22 @@
+{
+  "project": {
+    "createTitle": "Tạo dự án mới",
+    "editTitle": "Sửa dự án",
+    "deleteTitle": "Xoá dự án",
+    "deleteConfirm": "Bạn có chắc là muốn xoá dự án này?",
+    "nameInput": "Tên dự án",
+    "codeInput": "Mã dự án",
+    "descInput": "Mô tả dự án"
+  },
+  "task": {
+    "createTitle": "Tạo task mới",
+    "editTitle": "Sửa task",
+    "deleteTitle": "Xoá task",
+    "deleteConfirm": "Bạn có chắc là muốn xoá task này?",
+    "nameInput": "Tên task",
+    "codeInput": "Mã task",
+    "descInput": "Mô tả task",
+    "statusInput": "Trạng thái task",
+    "priorityInput": "Mức ưu tiên của task"
+  }
+}

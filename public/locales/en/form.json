@@ -1,0 +1,22 @@
+{
+  "project": {
+    "createTitle": "Create new project",
+    "editTitle": "Edit project",
+    "deleteTitle": "Delete project",
+    "deleteConfirm": "Are you sure you want to delete this project?",
+    "nameInput": "Project name",
+    "codeInput": "Project code",
+    "descInput": "Project description"
+  },
+  "task": {
+    "createTitle": "Create new task",
+    "editTitle": "Edit task",
+    "deleteTitle": "Delete task",
+    "deleteConfirm": "Are you sure you want to delete this task?",
+    "nameInput": "Task name",
+    "codeInput": "Task code",
+    "descInput": "Task description",
+    "statusInput": "Task status",
+    "priorityInput": "Task priority"
+  }
+}
