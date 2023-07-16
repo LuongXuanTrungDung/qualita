@@ -1,2 +1,2 @@
-# showcase-v2
-Personal website, made with NextJS and Preact
+# Qualita
+Browser-based task management system, made using Next and Material UI
