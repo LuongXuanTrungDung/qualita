@@ -41,9 +41,8 @@ export default function TaskColumn(props: colProps) {
     marginRight: 1,
   }
   const taskCountStyle: SxProps<Theme> = {
-    ml: 0.5,
     mb: 2,
-    mt: '1.45rem',
+    mt: 3,
     fontSize: 13,
     color: 'text.secondary',
   }

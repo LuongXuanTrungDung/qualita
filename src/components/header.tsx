@@ -25,7 +25,7 @@ export default function Header() {
   }, [currentProject])
 
   return (
-    <Box component="header" sx={{ py: 1 }}>
+    <Box component="header" sx={{ pb: 1 }}>
       <List
         sx={{
           display: 'flex',

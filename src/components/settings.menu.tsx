@@ -55,7 +55,6 @@ export default function SettingsMenu(props: IMenuProps) {
   }, [currentProject])
 
   const uploadData = () => {
-    setControl(null)
     const element = hiddenInputRef.current
     if (element) {
       element.click()
@@ -81,7 +80,7 @@ export default function SettingsMenu(props: IMenuProps) {
       anchorEl={control}
       onClose={() => setControl(null)}
     >
-      <MenuList sx={{ px: '1.25rem', py: 1 }}>
+      <MenuList sx={{ px: 2, py: 1 }}>
         <MenuItem onClick={colorMode.toggleColorMode}>
           <Typography>
             {theme.palette.mode === 'dark'

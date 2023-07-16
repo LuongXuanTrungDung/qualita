@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   Button,
   Divider,
+  ListItemIcon,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -70,26 +71,20 @@ export default function ProjectSelect() {
         </MenuItem>
       ))}
       <Divider />
-      <Stack flexDirection="column" spacing={2}>
-        <Button
-          color="success"
-          startIcon={<AddCircleIcon />}
-          sx={{ pl: 2 }}
-          onClick={handleCreate}
-        >
-          {translate('form:project.createTitle')}
-        </Button>
-        {current !== emptyData.project && (
-          <Button
-            color="secondary"
-            startIcon={<BorderColorIcon />}
-            sx={{ pl: 2 }}
-            onClick={handleEdit}
-          >
-            {translate('form:project.editTitle')}
-          </Button>
-        )}
-      </Stack>
+      <MenuItem onClick={handleCreate}>
+        <ListItemIcon>
+          <AddCircleIcon fontSize="small" color="success" />
+        </ListItemIcon>
+        {translate('form:project.createTitle')}
+      </MenuItem>
+      {current !== emptyData.project && (
+        <MenuItem onClick={handleEdit}>
+          <ListItemIcon>
+            <BorderColorIcon fontSize="small" color="secondary" />
+          </ListItemIcon>
+          {translate('form:project.editTitle')}
+        </MenuItem>
+      )}
     </Select>
   )
 }

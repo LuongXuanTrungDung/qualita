@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { SxProps, Theme, Box, Fab } from '@mui/material'
+import { SxProps, Theme, Box, Fab, Stack } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
 import ModalList from '@components/common/modalList'
 import Header from '@components/header'
+import Footer from '@components/footer'
 import ViewSelection from '@components/viewSelection.tabs'
 import { toggleTaskModal } from '@store/task.slice'
 import { selectProject } from '@store/project.slice'
@@ -31,7 +32,7 @@ export default function Home() {
   }, [currentProject])
 
   return (
-    <Box component="main" sx={mainStyle}>
+    <Stack component="main" sx={mainStyle} flexDirection="column">
       <Header />
       {current && <ViewSelection />}
 
@@ -39,6 +40,7 @@ export default function Home() {
 
       {current && (
         <Fab
+          sx={{ width: 200 }}
           color="success"
           variant="extended"
           onClick={() => dispatch(toggleTaskModal('create'))}
@@ -47,6 +49,8 @@ export default function Home() {
           {translate('form:task.createTitle')}
         </Fab>
       )}
-    </Box>
+
+      <Footer />
+    </Stack>
   )
 }

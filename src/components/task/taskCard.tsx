@@ -21,10 +21,7 @@ interface cardProps {
 }
 
 const cardStyle: SxProps<Theme> = {
-  mt: 2,
-  ml: 2,
-  mb: 2,
-  mr: '1.5rem',
+  m: 2,
   bgcolor: 'divider',
 }
 
