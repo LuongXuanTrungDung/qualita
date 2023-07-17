@@ -1,6 +1,6 @@
 {
   "name": "qualita",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Browser-based task management system",
   "main": "index.js",
   "repository": "https://github.com/LuongXuanTrungDung/qualita.git",
