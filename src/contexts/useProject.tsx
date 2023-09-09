@@ -1,32 +1,60 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
 import { useSelector } from 'react-redux'
 
-import { IProjectData } from '@interfaces/project.interface'
-import { selectProject } from '@store/project.slice'
+import { IProject, IProjectContext } from '@interfaces/project.interface'
+import { SelectProject } from '@store/project.slice'
 import { TaskContext } from './useTask'
-import { emptyContext, emptyResult } from '@utils/constants'
+import { ITask } from '@interfaces/task.interface'
+import { IUpdate } from '@interfaces/update.interface'
+import { UpdateContext } from './useUpdate'
 
-export const ProjectContext = createContext(emptyContext.projectContext)
+const initialState: IProjectContext = {
+  findProject: (code: string) => null,
+  fetchProjects: () => []
+}
+
+export const ProjectContext = createContext(initialState)
 export function ProjectProvider(props: PropsWithChildren) {
-  const allProjects = useSelector(selectProject).projectData
-  const { fetchTasks_byProject } = useContext(TaskContext)
+  const allProjects = useSelector(SelectProject).projectData
+  const { findTask } = useContext(TaskContext)
+  const { findUpdate } = useContext(UpdateContext)
 
-  const PFindProject = (id: string) => {
-    const index = allProjects.findIndex((p) => p.id === id)
-    return index > -1 ? allProjects[index] : emptyResult.project
+  const populateTask = (project: IProject) => {
+    const tasks: ITask[] = []
+    project.tasks.forEach((t) => {
+      const findQuery = findTask(t as string)
+      if (findQuery) tasks.push(findQuery)
+    })
+    return tasks
   }
-  const findProject = (id: string) => {
-    const findResult = PFindProject(id)
-    const projectTasks =
-      fetchTasks_byProject !== undefined ? fetchTasks_byProject(id) : []
-    return { ...findResult, tasks: projectTasks ? projectTasks : [] }
+
+  const populateUpdate = (project: IProject) => {
+    const updates: IUpdate[] = []
+    project.updates.forEach((u) => {
+      const findQuery = findUpdate(u as string)
+      if (findQuery) updates.push(findQuery)
+    })
+    return updates
+  }
+
+  const findProject = (code: string) => {
+    const index = allProjects.findIndex((p) => p.code === code)
+    if (index > -1) {
+      const result = allProjects[index]
+      result.tasks = populateTask(result) // Populate project's tasks
+      result.updates = populateUpdate(result) // Populate project's updates
+      return result
+    }
+    return null
   }
 
   const fetchProjects = () => {
-    const result: IProjectData[] = []
+    const result: IProject[] = []
     allProjects.forEach((p) => {
-      const foundProject = findProject(p.id)
-      if (foundProject) result.push(foundProject)
+      const foundProject = findProject(p.code)
+      if (foundProject && !result.includes(foundProject)) {
+        result.push(foundProject)
+      }
     })
     return result
   }

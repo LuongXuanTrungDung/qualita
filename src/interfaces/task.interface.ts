@@ -1,20 +1,19 @@
-export interface TaskDTO {
-  name: string
-  code: string
-  description: string
-  priority: number
-  status: string
-  project: string
-}
+import { IBase } from "./base.interface"
+import { IUpdate } from "./update.interface"
 
-export interface ITask extends TaskDTO {
-  id: string
+export interface ITask extends IBase {
+  name: string
+  description: string | null
+  priority: number
+  step: string
+  updates: IUpdate[] | string[]
 }
 
 export interface ITaskSlice {
-  showCreateModal: boolean
-  showEditModal: boolean
-  showDeleteModal: boolean
-  currentTask: ITask
+  currentTask: string | null
   taskData: ITask[]
+}
+
+export interface ITaskContext {
+  findTask: (taskCode: string) => ITask | null
 }

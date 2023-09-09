@@ -1,29 +1,41 @@
-import { createContext, PropsWithChildren } from 'react'
+import { createContext, PropsWithChildren, useContext } from 'react'
 import { useSelector } from 'react-redux'
 
-import { ITask } from '@interfaces/task.interface'
-import { selectTask } from '@store/task.slice'
-import { emptyContext, emptyData } from '@utils/constants'
+import { ITask, ITaskContext } from '@interfaces/task.interface'
+import { SelectTask } from '@store/task.slice'
+import { IUpdate } from '@interfaces/update.interface'
+import { UpdateContext } from './useUpdate'
 
-export const TaskContext = createContext(emptyContext.taskContext)
+const initialState: ITaskContext = {
+  findTask: (code: string) => null,
+}
+
+export const TaskContext = createContext(initialState)
 export function TaskProvider(props: PropsWithChildren) {
-  const allTasks = useSelector(selectTask).taskData
+  const allTasks = useSelector(SelectTask).taskData
+  const { findUpdate } = useContext(UpdateContext)
 
-  const findTask = (taskId: string) => {
-    const index = allTasks.findIndex((p) => p.id === taskId)
-    return index > -1 ? allTasks[index] : emptyData.task
+  const populateUpdate = (task: ITask) => {
+    const updates: IUpdate[] = []
+    task.updates.forEach((u) => {
+      const findQuery = findUpdate(u as string)
+      if (findQuery) updates.push(findQuery)
+    })
+    return updates
   }
 
-  const fetchTasks_byProject = (projectId: string) => {
-    const result: ITask[] = []
-    allTasks.forEach((t) => {
-      if (t.project === projectId) result.push(t)
-    })
-    return result
+  const findTask = (taskCode: string) => {
+    const index = allTasks.findIndex((t) => t.code === taskCode)
+    if (index > -1) {
+      const task = allTasks[index]
+      task.updates = populateUpdate(task)
+      return task
+    }
+    return null
   }
 
   return (
-    <TaskContext.Provider value={{ findTask, fetchTasks_byProject }}>
+    <TaskContext.Provider value={{ findTask }}>
       {props.children}
     </TaskContext.Provider>
   )

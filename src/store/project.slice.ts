@@ -1,20 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { AppState } from '.'
 import {
-  IProject,
-  ProjectDTO,
-  IProjectSlice,
+  IProject, IProjectSlice,
 } from '@/interfaces/project.interface'
 import { HYDRATE } from 'next-redux-wrapper'
-import { generateID } from '@/utils/generateString'
-import { emptyData } from '@utils/constants'
+import { emptyProject } from '@utils/constants'
 
 // Initial state
 const initialState: IProjectSlice = {
-  showCreateModal: false,
-  showEditModal: false,
-  showDeleteModal: false,
-  currentProject: emptyData.project,
+  currentProject: emptyProject.code,
   projectData: [],
 }
 
@@ -23,64 +17,79 @@ export const projectSlice = createSlice({
   name: 'project',
   initialState,
   reducers: {
-    toggleProjectModal(state, action: PayloadAction<string>) {
-      const payload = action.payload.toLowerCase()
-      switch (payload) {
-        case 'create':
-          state.showCreateModal = !state.showCreateModal
-          break
-        case 'edit':
-          state.showEditModal = !state.showEditModal
-          break
-        case 'delete':
-          state.showDeleteModal = !state.showDeleteModal
-          break
-        default:
-          break
-      }
-    },
-
     setProjectData(state, action: PayloadAction<IProject[]>) {
       const payload = action.payload
       state.projectData = state.projectData.concat(payload)
-      state.currentProject = payload[0]
+      state.currentProject = payload[0].code
     },
 
     setCurrentProject(state, action: PayloadAction<string>) {
       const payload = action.payload
-      const projectIndex = state.projectData.findIndex((p) => p.id === payload)
-      if (projectIndex > -1) {
-        state.currentProject = state.projectData[projectIndex]
-      }
+      state.currentProject = payload
     },
 
-    addProject(state, action: PayloadAction<ProjectDTO>) {
+    addProject(state, action: PayloadAction<IProject>) {
       const payload = action.payload
-      const project = { id: generateID(16), ...payload }
-      state.projectData.push(project)
-      state.currentProject = project
+      payload.createdTS = new Date().toLocaleDateString()
+
+      // Prevent duplicate project code
+      const projectIndex = state.projectData.findIndex(
+        (p) => p.code === payload.code,
+      )
+      if (projectIndex === -1) {
+        state.projectData.push(payload)
+        state.currentProject = payload.code
+      }
     },
 
     editProject(state, action: PayloadAction<IProject>) {
       const payload = action.payload
       const projectIndex = state.projectData.findIndex(
-        (p) => p.id === payload.id,
+        (p) => p.code === payload.code,
       )
+
       if (projectIndex > -1) {
         const getProject = state.projectData[projectIndex]
         state.projectData[projectIndex] = {
           ...getProject,
           name: payload.name,
           description: payload.description,
+          isDeleted: payload.isDeleted,
+          lastEditedTS: new Date().toLocaleDateString(),
+          steps: payload.steps,
+          tasks: payload.tasks,
+          updates: payload.updates
         }
       }
     },
 
-    removeProject(state, action: PayloadAction<string>) {
-      const payload = action.payload
-      const projectIndex = state.projectData.findIndex((p) => p.id === payload)
-      if (projectIndex > -1) {
-        state.projectData.splice(projectIndex, 1)
+    addTask_intoProject(state, action: PayloadAction<string>) {
+      if (state.currentProject) {
+        const payload = action.payload
+        const projectIndex = state.projectData.findIndex(
+          (p) => p.code === state.currentProject,
+        )
+
+        const project = state.projectData[projectIndex]
+        const projectTasks = project.tasks as string[]
+        if (!projectTasks.includes(payload)) {
+          projectTasks.push(payload)
+        }
+      }
+    },
+
+    addUpdate_intoProject(state, action: PayloadAction<string>) {
+      if (state.currentProject) {
+        const payload = action.payload
+        const projectIndex = state.projectData.findIndex(
+          (p) => p.code === state.currentProject,
+        )
+
+        const project = state.projectData[projectIndex]
+        const projectUpdates = project.updates as string[]
+        if (!projectUpdates.includes(payload)) {
+          projectUpdates.push(payload)
+        }
       }
     },
   },
@@ -99,12 +108,12 @@ export const projectSlice = createSlice({
 export const {
   addProject,
   editProject,
-  removeProject,
   setProjectData,
-  toggleProjectModal,
   setCurrentProject,
+  addTask_intoProject,
+  addUpdate_intoProject
 } = projectSlice.actions
 
-export const selectProject = (state: AppState) => state.project
+export const SelectProject = (state: AppState) => state.project
 
 export default projectSlice.reducer

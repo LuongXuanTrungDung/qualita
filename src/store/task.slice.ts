@@ -1,16 +1,12 @@
-import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { AppState } from '.'
 import { HYDRATE } from 'next-redux-wrapper'
-import { generateID } from '@/utils/generateString'
-import { ITask, TaskDTO, ITaskSlice } from '@interfaces/task.interface'
-import { definitions, emptyData } from '@utils/constants'
+import { ITask, ITaskSlice } from '@interfaces/task.interface'
+import { emptyTask } from '@utils/constants'
 
 // Initial state
 const initialState: ITaskSlice = {
-  showCreateModal: false,
-  showEditModal: false,
-  showDeleteModal: false,
-  currentTask: emptyData.task,
+  currentTask: emptyTask.code,
   taskData: [],
 }
 
@@ -19,28 +15,11 @@ export const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    toggleTaskModal(state, action: PayloadAction<string>) {
-      const payload = action.payload
-      switch (payload) {
-        case 'create':
-          state.showCreateModal = !state.showCreateModal
-          break
-        case 'edit':
-          state.showEditModal = !state.showEditModal
-          break
-        case 'delete':
-          state.showDeleteModal = !state.showDeleteModal
-          break
-        default:
-          break
-      }
-    },
-
     setCurrentTask(state, action: PayloadAction<string>) {
       const payload = action.payload
-      const taskIndex = state.taskData.findIndex((p) => p.id === payload)
+      const taskIndex = state.taskData.findIndex(t => t.code === payload)
       if (taskIndex > -1) {
-        state.currentTask = state.taskData[taskIndex]
+        state.currentTask = state.taskData[taskIndex].code
       }
     },
 
@@ -49,32 +28,16 @@ export const taskSlice = createSlice({
       state.taskData = state.taskData.concat(payload)
     },
 
-    updateTaskStatus(
-      state,
-      action: PayloadAction<{ id: string; status: string }>,
-    ) {
+    addTask(state, action: PayloadAction<ITask>) {
       const payload = action.payload
-      const taskIndex = state.taskData.findIndex((p) => p.id === payload.id)
-      if (
-        taskIndex > -1 &&
-        definitions.kanbanColumns.includes(payload.status)
-      ) {
-        state.taskData[taskIndex].status = payload.status
-      }
-    },
-
-    addTask(state, action: PayloadAction<TaskDTO>) {
-      const payload = action.payload
-      state.taskData.push({ id: generateID(16), ...payload })
-
-      if (state.currentTask === emptyData.task) {
-        state.currentTask = state.taskData[0]
-      }
+      payload.createdTS = new Date().toLocaleDateString()
+      state.taskData.push(payload)
     },
 
     editTask(state, action: PayloadAction<ITask>) {
       const payload = action.payload
-      const taskIndex = state.taskData.findIndex((p) => p.id === payload.id)
+      const taskIndex = state.taskData.findIndex(t => t.code === payload.code)
+
       if (taskIndex > -1) {
         const getTask = state.taskData[taskIndex]
         state.taskData[taskIndex] = {
@@ -83,16 +46,26 @@ export const taskSlice = createSlice({
           code: payload.code,
           description: payload.description,
           priority: payload.priority,
-          project: payload.project,
+          step: payload.step,
+          isDeleted: payload.isDeleted,
+          lastEditedTS: new Date().toLocaleDateString(),
+          updates: payload.updates
         }
       }
     },
 
-    removeTask(state, action: PayloadAction<string>) {
-      const payload = action.payload
-      const taskIndex = state.taskData.findIndex((p) => p.id === payload)
-      if (taskIndex > -1) {
-        state.taskData.splice(taskIndex, 1)
+    addUpdate_intoTask(state, action: PayloadAction<string>) {
+      if (state.currentTask) {
+        const payload = action.payload
+        const projectIndex = state.taskData.findIndex(
+          t => t.code === state.currentTask,
+        )
+
+        const project = state.taskData[projectIndex]
+        const projectUpdates = project.updates as string[]
+        if (!projectUpdates.includes(payload)) {
+          projectUpdates.push(payload)
+        }
       }
     },
   },
@@ -111,13 +84,11 @@ export const taskSlice = createSlice({
 export const {
   addTask,
   editTask,
-  removeTask,
-  toggleTaskModal,
   setCurrentTask,
-  updateTaskStatus,
   setTaskData,
+  addUpdate_intoTask
 } = taskSlice.actions
 
-export const selectTask = (state: AppState) => state.task
+export const SelectTask = (state: AppState) => state.task
 
 export default taskSlice.reducer

@@ -1,28 +1,21 @@
+import { IBase } from './base.interface'
 import { ITask } from './task.interface'
+import { IUpdate } from './update.interface'
 
-export interface ProjectDTO {
+export interface IProject extends IBase {
   name: string
-  description: string
-  code: string
-}
-
-export interface IProject extends ProjectDTO {
-  id: string
-}
-
-export interface IProjectData extends IProject {
-  tasks: ITask[]
+  description: string | null
+  tasks: ITask[] | string[]
+  steps: string[]
+  updates: IUpdate[] | string[]
 }
 
 export interface IProjectSlice {
-  showCreateModal: boolean
-  showEditModal: boolean
-  showDeleteModal: boolean
-  currentProject: IProject
+  currentProject: string | null
   projectData: IProject[]
 }
 
 export interface IProjectContext {
-  findProject?: (id: string) => IProjectData | null
-  fetchProjects?: () => IProjectData[]
+  findProject: (code: string) => IProject | null
+  fetchProjects: () => IProject[]
 }

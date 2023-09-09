@@ -1,13 +1,16 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { createWrapper } from 'next-redux-wrapper'
+
 import { projectSlice } from './project.slice'
 import { taskSlice } from './task.slice'
-import { createWrapper } from 'next-redux-wrapper'
+import { updateSlice } from './update.slice'
 
 const makeStore = () =>
   configureStore({
     reducer: {
       [projectSlice.name]: projectSlice.reducer,
       [taskSlice.name]: taskSlice.reducer,
+      [updateSlice.name]: updateSlice.reducer
     },
     devTools: true,
   })

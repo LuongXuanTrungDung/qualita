@@ -3,13 +3,19 @@ import { useDispatch } from 'react-redux'
 
 import { ProjectContext } from './useProject'
 import { setProjectData } from '@store/project.slice'
-import { IProject, IProjectData } from '@interfaces/project.interface'
+import { IProject } from '@interfaces/project.interface'
 import { ITask } from '@interfaces/task.interface'
 import { setTaskData } from '@store/task.slice'
-import { generateID } from '@utils/generateString'
-import { emptyContext } from '@utils/constants'
+import { IFileContext } from '@interfaces/base.interface'
+import { IUpdate } from '@interfaces/update.interface'
+import { setUpdateData } from '@store/update.slice'
 
-export const FileContext = createContext(emptyContext.fileContext)
+const initialState: IFileContext = {
+  exportData: () => { },
+  importData: (event: FormEvent<HTMLInputElement>) => new Promise<void>(() => { }),
+}
+
+export const FileContext = createContext(initialState)
 export function FileProvider(props: PropsWithChildren) {
   const dispatch = useDispatch()
   const { fetchProjects } = useContext(ProjectContext)
@@ -34,22 +40,19 @@ export function FileProvider(props: PropsWithChildren) {
   const importData = async (event: FormEvent<HTMLInputElement>) => {
     if (event.currentTarget && event.currentTarget.files) {
       const fileContent = await event.currentTarget.files[0].text()
-      const importedData: IProjectData[] = JSON.parse(fileContent)
+      const importedData: IProject[] = JSON.parse(fileContent)
       const importedProjects: IProject[] = []
       let importedTasks: ITask[] = []
+      let importedUpdates: IUpdate[] = []
 
       importedData.forEach((pData) => {
-        const { tasks, ...project } = pData
-        project.id = project.id !== '' ? project.id : generateID(16)
-        tasks.forEach((t) => {
-          t.id = t.id !== '' ? t.id : generateID(16)
-        })
-
-        importedProjects.push(project)
-        importedTasks = importedTasks.concat(tasks)
+        importedProjects.push(pData)
+        importedTasks = importedTasks.concat(pData.tasks as ITask[])
+        importedUpdates = importedUpdates.concat(pData.updates as IUpdate[])
       })
       dispatch(setProjectData(importedProjects))
       dispatch(setTaskData(importedTasks))
+      dispatch(setUpdateData(importedUpdates))
     }
   }
 

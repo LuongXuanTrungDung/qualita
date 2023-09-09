@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 // Source: https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
 export default function useWindowSize() {
@@ -14,11 +14,11 @@ export default function useWindowSize() {
 
   const hasWindow = typeof window !== 'undefined'
 
-  const getDimensions = () => {
+  const getDimensions = useCallback(() => {
     const width = hasWindow ? window.innerWidth : null
     const height = hasWindow ? window.innerHeight : null
     return { width, height, breakpoint: getBreakpoints(width) }
-  }
+  }, [hasWindow])
 
   const [dimensions, setDimensions] = useState(getDimensions())
 
@@ -30,7 +30,7 @@ export default function useWindowSize() {
           setDimensions(getDimensions()),
         )
     }
-  }, [hasWindow])
+  }, [getDimensions, hasWindow])
 
   return dimensions
 }
