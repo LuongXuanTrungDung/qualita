@@ -16,19 +16,25 @@ export default function CreateProjectModal() {
   const { translate } = useContext(LanguageContext)
   const { activeModal } = useContext(UIContext)
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(activeModal === 'create-project')
   const [formData, setFormData] = useState(emptyProject)
 
   useEffect(() => setOpen(activeModal === 'create-project'), [activeModal])
 
   const handleSubmit = () => {
     dispatch(addProject(formData))
+    handleClose()
+  }
+
+  const handleClose = () => {
     setOpen(false)
+    setFormData(emptyProject)
   }
 
   return (
     <ModalWrapper
-      controlState={[open, setOpen]}
+      controlState={open}
+      closeFn={handleClose}
       title={translate('form:project.createTitle')}
       confirm={
         <Button variant="contained" type="submit" onClick={handleSubmit} sx={{ ml: 'auto' }}>
@@ -38,11 +44,10 @@ export default function CreateProjectModal() {
     >
       <Stack
         direction={breakpoint === 'xs' ? 'column' : 'row'}
+        sx={{ pb: 2 }}
       >
         <TextField
           sx={{ mr: 2, width: '100%' }}
-          autoFocus
-          margin="dense"
           name="project-title"
           label={translate('form:project.nameInput')}
           type="text"
@@ -52,8 +57,6 @@ export default function CreateProjectModal() {
         />
         <TextField
           sx={{ ml: 2, width: '100%' }}
-          autoFocus
-          margin="dense"
           name="project-code"
           label={translate('form:project.codeInput')}
           type="text"
@@ -62,22 +65,21 @@ export default function CreateProjectModal() {
           onChange={(e) =>
             setFormData({
               ...formData,
-              code: e.target.value.toLocaleUpperCase(),
+              code: e.target.value,
             })
           }
         />
       </Stack>
       <TextField
+        sx={{ pt: 2, width: '100%' }}
         autoFocus
         multiline
         rows={8}
-        margin="dense"
         name="project-desc"
         label={translate('form:project.descInput')}
         type="text"
-        fullWidth
         variant="standard"
-        value={formData.description}
+        value={formData.description ? formData.description : ''}
         onChange={(e) =>
           setFormData({ ...formData, description: e.target.value })
         }

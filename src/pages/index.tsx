@@ -42,8 +42,8 @@ export default function Home() {
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={handleSwitchTab}>
                   {projects.map((project, pIndex) => <Tab key={pIndex} label={project.name} value={project.code} />)}
-                  <IconButton onClick={() => openModal('create-project')}><AddIcon /></IconButton>
-                  <IconButton onClick={() => openModal('project-settings')}><MoreHorizIcon /></IconButton>
+                  <IconButton sx={{ '&:hover': { borderRadius: 0 } }} onClick={() => openModal('create-project')}><AddIcon /></IconButton>
+                  <IconButton sx={{ '&:hover': { borderRadius: 0 } }} onClick={() => openModal('project-settings')}><MoreHorizIcon /></IconButton>
                 </TabList>
               </Box>
 

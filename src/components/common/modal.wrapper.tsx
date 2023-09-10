@@ -14,7 +14,8 @@ import { UIContext } from '@contexts/useUI'
 import { LanguageContext } from '@contexts/useLanguage'
 
 interface modalProps {
-  controlState: [boolean, (value: boolean) => void]
+  controlState: boolean
+  closeFn: Function
   title: string
   confirm: JSX.Element
 }
@@ -23,8 +24,7 @@ export default function ModalWrapper(props: PropsWithChildren<modalProps>) {
   const { closeModal } = useContext(UIContext)
   const { translate } = useContext(LanguageContext)
 
-  const { children, controlState, title, confirm } = props
-  const [open, setOpen] = controlState
+  const { children, controlState, title, confirm, closeFn } = props
 
   const boxStyle: SxProps = {
     position: 'absolute',
@@ -33,36 +33,37 @@ export default function ModalWrapper(props: PropsWithChildren<modalProps>) {
     transform: 'translate(-50%, -50%)',
     width: '60%',
     bgcolor: 'background.paper',
-    borderRadius: '1rem',
     boxShadow: 24,
+    '& > div': { p: 3 }
   }
 
   const handleClose = () => {
-    setOpen(false)
+    closeFn()
     closeModal()
   }
 
   return (
     <Modal
-      open={open} onClose={handleClose}
+      open={controlState} onClose={handleClose}
       closeAfterTransition
+      keepMounted
       slots={{ backdrop: Backdrop }}
       slotProps={{
         backdrop: {
           timeout: 500,
         },
       }}>
-      <Fade in={open}>
+      <Fade in={controlState}>
         <Box sx={boxStyle}>
-          <Paper sx={{ p: 2 }} color='primary'>
+          <Paper>
             <Typography variant='h5' component='h5'>{title}</Typography>
           </Paper>
-          <Box sx={{ p: 2 }}>
+          <Box>
             {children}
           </Box>
-          <Stack sx={{ p: 2 }} direction="row">
-            <Box sx={{mr: 'auto'}}><Button onClick={handleClose} >{translate('common:Cancel')}</Button></Box>
-            <Box sx={{ml: 'auto'}}>{confirm}</Box>
+          <Stack direction="row">
+            <Box sx={{ mr: 'auto' }}><Button onClick={handleClose} >{translate('common:Cancel')}</Button></Box>
+            <Box sx={{ ml: 'auto' }}>{confirm}</Box>
           </Stack>
         </Box>
       </Fade>
