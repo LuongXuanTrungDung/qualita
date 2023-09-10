@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <Stack
       component="footer"
-      sx={{ mt: 'auto', mb: 2 }}
+      sx={{ mt: 1 }}
       flexDirection="row"
       alignItems="center"
       justifyContent="center"
