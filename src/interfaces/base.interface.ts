@@ -22,11 +22,14 @@ export interface IFileContext {
   importData: (event: FormEvent<HTMLInputElement>) => Promise<void>
 }
 
+export interface IMenuProps {
+  anchorState: [HTMLElement | null, (el: HTMLElement | null) => void]
+}
+
 interface ILanguage {
   name: string,
   locale: string
 }
-
 export interface ILanguageContext {
   allLanguages: ILanguage[]
   currentLanguage: string
