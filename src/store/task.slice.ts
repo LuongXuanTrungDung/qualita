@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { AppState } from '.'
 import { HYDRATE } from 'next-redux-wrapper'
 import { ITask, ITaskSlice } from '@interfaces/task.interface'
-import { emptyTask } from '@utils/constants'
+import { emptyTask } from '@utils/emptyObjects'
 
 // Initial state
 const initialState: ITaskSlice = {

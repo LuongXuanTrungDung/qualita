@@ -4,7 +4,7 @@ import {
   IProject, IProjectSlice,
 } from '@/interfaces/project.interface'
 import { HYDRATE } from 'next-redux-wrapper'
-import { emptyProject } from '@utils/constants'
+import { emptyProject } from '@utils/emptyObjects'
 
 // Initial state
 const initialState: IProjectSlice = {

@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { AppState } from '.'
 import { HYDRATE } from 'next-redux-wrapper'
-import { emptyUpdate } from '@utils/constants'
+import { emptyUpdate } from '@utils/emptyObjects'
 import { IUpdate, IUpdateSlice } from '@interfaces/update.interface'
 
 // Initial state
