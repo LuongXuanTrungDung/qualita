@@ -22,8 +22,13 @@ export interface IFileContext {
   importData: (event: FormEvent<HTMLInputElement>) => Promise<void>
 }
 
+interface ILanguage {
+  name: string,
+  locale: string
+}
+
 export interface ILanguageContext {
-  allLanguages: string[]
+  allLanguages: ILanguage[]
   currentLanguage: string
   translate: (text: string) => string
   switchLanguage: (lang: string) => void,

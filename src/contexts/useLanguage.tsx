@@ -13,18 +13,19 @@ const initialState: ILanguageContext = {
 export const LanguageContext = createContext(initialState)
 export function LanguageProvider(props: PropsWithChildren) {
   const { t, lang } = useTranslation('common')
-  const languages = ['en', 'vi']
+  const locales = ['en', 'vi']
+  const allLanguages = [{ name: 'English', locale: 'en' }, { name: 'Vietnamese', locale: 'vi' }]
 
   const translate = (text: string) => {
     return t(text)
   }
   const switchLanguage = (lang: string) => {
-    if (languages.includes(lang)) setLanguage(lang)
+    if (locales.includes(lang)) setLanguage(lang)
   }
 
   return (
     <LanguageContext.Provider
-      value={{ translate, switchLanguage, allLanguages: languages, currentLanguage: lang }}
+      value={{ translate, switchLanguage, allLanguages, currentLanguage: lang }}
     >
       {props.children}
     </LanguageContext.Provider>
