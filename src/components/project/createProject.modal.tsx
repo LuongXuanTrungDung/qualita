@@ -1,58 +1,46 @@
-import { useContext, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useContext, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import { TextField, Button, Stack } from '@mui/material'
 
-import {
-  addProject,
-  selectProject,
-  toggleProjectModal,
-} from '@/store/project.slice'
-import { emptyObject } from '@utils/constants'
+import { addProject, } from '@/store/project.slice'
 import { LanguageContext } from '@contexts/useLanguage'
 import useWindowSize from '@hooks/useWindowSize'
-import DialogWrapper from '@components/common/dialog.wrapper'
+import ModalWrapper from '@components/common/modal.wrapper'
+import { UIContext } from '@contexts/useUI'
+import { emptyProject } from '@utils/emptyObjects'
 
 export default function CreateProjectModal() {
   const dispatch = useDispatch()
-  const control = useSelector(selectProject).showCreateModal
   const breakpoint = useWindowSize().breakpoint
-  const [formData, setFormData] = useState(emptyObject.project)
   const { translate } = useContext(LanguageContext)
+  const { activeModal } = useContext(UIContext)
 
-  const handleClose = () => {
-    setFormData(emptyObject.project)
-    dispatch(toggleProjectModal('create'))
-  }
+  const [open, setOpen] = useState(false)
+  const [formData, setFormData] = useState(emptyProject)
+
+  useEffect(() => setOpen(activeModal === 'create-project'), [activeModal])
 
   const handleSubmit = () => {
     dispatch(addProject(formData))
-    handleClose()
+    setOpen(false)
   }
 
   return (
-    <DialogWrapper
-      controlValue={control}
-      closeFn={handleClose}
+    <ModalWrapper
+      controlState={[open, setOpen]}
       title={translate('form:project.createTitle')}
-      actions={
-        <>
-          <Button variant="contained" type="submit" onClick={handleSubmit}>
-            {translate('common:Create')}
-          </Button>
-          <Button onClick={handleClose}>{translate('common:Cancel')}</Button>
-        </>
+      confirm={
+        <Button variant="contained" type="submit" onClick={handleSubmit} sx={{ ml: 'auto' }}>
+          {translate('common:Create')}
+        </Button>
       }
     >
       <Stack
-        spacing={2}
-        useFlexGap
-        flexWrap="wrap"
-        alignItems="center"
-        justifyContent="center"
         direction={breakpoint === 'xs' ? 'column' : 'row'}
       >
         <TextField
+          sx={{ mr: 2, width: '100%' }}
           autoFocus
           margin="dense"
           name="project-title"
@@ -63,6 +51,7 @@ export default function CreateProjectModal() {
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
         <TextField
+          sx={{ ml: 2, width: '100%' }}
           autoFocus
           margin="dense"
           name="project-code"
@@ -81,7 +70,7 @@ export default function CreateProjectModal() {
       <TextField
         autoFocus
         multiline
-        rows={4}
+        rows={8}
         margin="dense"
         name="project-desc"
         label={translate('form:project.descInput')}
@@ -93,6 +82,6 @@ export default function CreateProjectModal() {
           setFormData({ ...formData, description: e.target.value })
         }
       />
-    </DialogWrapper>
+    </ModalWrapper>
   )
 }
