@@ -1,10 +1,11 @@
 import { SxProps, Theme } from '@mui/material'
 import Box from '@mui/material/Box'
-import { definitions } from '@/utils/constants'
-import TaskColumn from './taskColumn'
+import TaskColumn from './column'
+import { useContext } from 'react'
+import { UIContext } from '@contexts/useUI'
 
-export default function TaskField() {
-  const taskCols = definitions.kanbanColumns
+export default function KanbanBoard() {
+  const { stepList } = useContext(UIContext)
   const fieldStyle: SxProps<Theme> = {
     display: 'flex',
     alignContent: 'center',
@@ -15,12 +16,12 @@ export default function TaskField() {
 
   return (
     <Box component="section" sx={fieldStyle}>
-      {taskCols.map((colName, colIndex) => {
+      {stepList.map((colName, colIndex) => {
         return (
           <TaskColumn
-            isFirst={colIndex === 0}
-            isLast={colIndex === taskCols.length - 1}
-            name={colName}
+            isFirstColumn={colIndex === 0}
+            isLastColumn={colIndex === stepList.length - 1}
+            columnName={colName}
             key={colIndex}
           />
         )

@@ -19,5 +19,10 @@
   "kanban": "Bảng Kanban",
   "taskList": "Danh sách task",
   "copyright": "Một sản phẩm của ",
-  "authorName": "Lương Xuân Trung Dũng"
+  "authorName": "Lương Xuân Trung Dũng",
+  "lowest": "Thấp nhất",
+  "low": "Thấp",
+  "medium": "Vừa",
+  "high": "Cao",
+  "highest": "Cao nhất"
 }

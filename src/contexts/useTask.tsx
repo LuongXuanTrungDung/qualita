@@ -28,8 +28,11 @@ export function TaskProvider(props: PropsWithChildren) {
     const index = allTasks.findIndex((t) => t.code === taskCode)
     if (index > -1) {
       const task = allTasks[index]
-      task.updates = populateUpdate(task)
-      return task
+      const result: ITask = {
+        ...task,
+        updates: populateUpdate(task)
+      }
+      return result
     }
     return null
   }

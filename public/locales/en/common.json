@@ -19,5 +19,10 @@
   "kanban": "Kanban board",
   "taskList": "Task table",
   "copyright": "A product of ",
-  "authorName": "Adrian Luong"
+  "authorName": "Adrian Luong",
+  "lowest": "Lowest",
+  "low": "Low",
+  "medium": "Medium",
+  "high": "High",
+  "highest": "Highest"
 }

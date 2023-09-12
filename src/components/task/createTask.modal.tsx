@@ -14,36 +14,57 @@ import {
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
 
-import { definitions, emptyObject } from '@utils/constants'
-import { addTask, selectTask, toggleTaskModal } from '@store/task.slice'
-import { selectProject } from '@store/project.slice'
+import { addTask } from '@store/task.slice'
+import { SelectProject } from '@store/project.slice'
 import { LanguageContext } from '@contexts/useLanguage'
 import useWindowSize from '@hooks/useWindowSize'
-import DialogWrapper from '@components/common/dialog.wrapper'
+import { ProjectContext } from '@contexts/useProject'
+import { IProject } from '@interfaces/project.interface'
+import { ITask } from '@interfaces/task.interface'
+import { emptyProject, emptyTask } from '@utils/emptyObjects'
+import { UIContext } from '@contexts/useUI'
+import ModalWrapper from '@components/common/modal.wrapper'
+import { IMark } from '@interfaces/base.interface'
 
 export default function CreateTaskModal() {
   const dispatch = useDispatch()
   const breakpoint = useWindowSize().breakpoint
-  const marks = definitions.priorityMarks
-  const taskCols = definitions.kanbanColumns
-  const currentProject = useSelector(selectProject).currentProject
-  const control = useSelector(selectTask).showCreateModal
   const { translate } = useContext(LanguageContext)
+  const { findProject } = useContext(ProjectContext)
+  const { closeModal, activeModal, stepList, priorityMarks } = useContext(UIContext)
 
-  const [project, setProject] = useState(currentProject)
-  const [formData, setFormData] = useState({
-    ...emptyObject.task,
-    code: project.code + '-',
-    project: project.id,
+  const [mark, setMark] = useState<IMark[]>([])
+  useEffect(() => {
+    const newerMarks = priorityMarks.map((m, mIndex) => {
+      return {
+        value: mIndex + 1,
+        label: translate('common:' + m.toLocaleLowerCase())
+      }
+    })
+    setMark(newerMarks)
+  }, [priorityMarks, translate])
+
+  const [open, setOpen] = useState(false)
+  useEffect(() => setOpen(activeModal === 'create-task'), [activeModal])
+
+  const [project, setProject] = useState<IProject>(emptyProject)
+  const projectCode = useSelector(SelectProject).currentProject
+  useEffect(() => {
+    const currentProject = projectCode ? findProject(projectCode) : null
+    if (currentProject) setProject(currentProject)
+  }, [findProject, projectCode])
+
+  const [formData, setFormData] = useState<ITask>({
+    ...emptyTask,
+    code: project ? project.code + '-' : emptyTask.code,
   })
 
   const handleClose = () => {
     setFormData({
-      ...emptyObject.task,
-      code: project.code + '-',
-      project: project.id,
+      ...emptyTask,
+      code: project ? project.code + '-' : emptyTask.code,
     })
-    dispatch(toggleTaskModal('create'))
+    closeModal()
   }
 
   const handleSubmit = () => {
@@ -56,25 +77,17 @@ export default function CreateTaskModal() {
     setFormData({ ...formData, priority: properValue })
   }
 
-  useEffect(() => {
-    setProject(currentProject)
-  }, [currentProject])
-
   return (
-    <DialogWrapper
-      controlValue={control}
+    <ModalWrapper
+      controlState={open}
       closeFn={handleClose}
       title={translate('form:task.createTitle')}
-      actions={
-        <>
-          <Button variant="contained" type="submit" onClick={handleSubmit}>
-            {translate('common:Create')}
-          </Button>
-          <Button onClick={handleClose}>{translate('common:Cancel')}</Button>
-        </>
+      confirm={
+        <Button variant="contained" type="submit" onClick={handleSubmit}>
+          {translate('common:Create')}
+        </Button>
       }
     >
-      <input type="hidden" name="current-project" value={project.id} />
       <Stack
         spacing={2}
         useFlexGap
@@ -108,19 +121,17 @@ export default function CreateTaskModal() {
             {translate('form:task.statusInput')}
           </InputLabel>
           <Select
-            value={formData.status}
+            value={formData.step}
             name="task-status"
             labelId="task-status-label"
             label={translate('form:task.statusInput')}
             onChange={(e: SelectChangeEvent) =>
-              setFormData({ ...formData, status: e.target.value })
+              setFormData({ ...formData, step: e.target.value })
             }
           >
-            {taskCols.map((col, colIndex) => {
+            {stepList.map((step, stepIndex) => {
               return (
-                <MenuItem key={colIndex} value={col}>
-                  {translate(col)}
-                </MenuItem>
+                <MenuItem key={stepIndex} value={step}>{step}</MenuItem>
               )
             })}
           </Select>
@@ -142,7 +153,7 @@ export default function CreateTaskModal() {
           valueLabelDisplay="auto"
           name="task-priority"
           step={1}
-          marks={breakpoint === 'xs' ? false : marks}
+          marks={breakpoint === 'xs' ? false : mark}
           min={1}
           max={5}
           value={formData.priority}
@@ -164,6 +175,6 @@ export default function CreateTaskModal() {
           setFormData({ ...formData, description: e.target.value })
         }
       />
-    </DialogWrapper>
+    </ModalWrapper>
   )
 }

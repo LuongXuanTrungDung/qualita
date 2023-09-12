@@ -10,6 +10,7 @@ export interface IBase {
 export interface IUIContext {
   activeModal: string | null
   stepList: string[]
+  priorityMarks: string[]
   openModal: (code: string) => void
   closeModal: () => void
   renameStep: (index: number, newName: string) => void
@@ -35,4 +36,9 @@ export interface ILanguageContext {
   currentLanguage: string
   translate: (text: string) => string
   switchLanguage: (lang: string) => void,
+}
+
+export interface IMark {
+  value: number
+  label: string
 }

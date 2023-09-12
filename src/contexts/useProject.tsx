@@ -21,28 +21,35 @@ export function ProjectProvider(props: PropsWithChildren) {
 
   const populateTask = (project: IProject) => {
     const tasks: ITask[] = []
-    project.tasks.forEach((t) => {
-      const findQuery = findTask(t as string)
-      if (findQuery) tasks.push(findQuery)
-    })
+    if (project.tasks.length > 0) {
+      project.tasks.forEach((t) => {
+        const findQuery = findTask(t as string)
+        if (findQuery) tasks.push(findQuery)
+      })
+    }
     return tasks
   }
 
   const populateUpdate = (project: IProject) => {
     const updates: IUpdate[] = []
-    project.updates.forEach((u) => {
-      const findQuery = findUpdate(u as string)
-      if (findQuery) updates.push(findQuery)
-    })
+    if (project.updates.length > 0) {
+      project.updates.forEach((u) => {
+        const findQuery = findUpdate(u as string)
+        if (findQuery) updates.push(findQuery)
+      })
+    }
     return updates
   }
 
   const findProject = (code: string) => {
     const index = allProjects.findIndex((p) => p.code === code)
     if (index > -1) {
-      const result = allProjects[index]
-      result.tasks = populateTask(result) // Populate project's tasks
-      result.updates = populateUpdate(result) // Populate project's updates
+      const project = allProjects[index]
+      const result: IProject = {
+        ...project,
+        tasks: populateTask(project), // Populate project's tasks
+        updates: populateUpdate(project) // Populate project's updates
+      }
       return result
     }
     return null

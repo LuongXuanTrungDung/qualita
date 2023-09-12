@@ -6,33 +6,31 @@ import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-import {
-  selectTask,
-  toggleTaskModal,
-  updateTaskStatus,
-} from '@store/task.slice'
-import { TaskCard } from './taskCard'
+import { SelectTask } from '@store/task.slice'
+// import { TaskCard } from './taskCard'
 import { LanguageContext } from '@contexts/useLanguage'
+import { UIContext } from '@contexts/useUI'
 
 interface colProps {
-  name: string
-  isFirst: boolean
-  isLast: boolean
+  columnName: string
+  isFirstColumn: boolean
+  isLastColumn: boolean
 }
 
 export default function TaskColumn(props: colProps) {
-  const { name, isFirst, isLast } = props
+  const { columnName, isFirstColumn, isLastColumn } = props
   const dispatch = useDispatch()
-  const tasks = useSelector(selectTask).taskData
+  const tasks = useSelector(SelectTask).taskData
   const { translate } = useContext(LanguageContext)
+  const { openModal } = useContext(UIContext)
 
   const taskColStyle: SxProps<Theme> = {
     width: '100%',
     minHeight: { xs: '100%', sm: 200 },
-    mt: { xs: isFirst ? 0 : 2, sm: 0 },
-    mb: { xs: isLast ? 2 : 0, sm: 0 },
-    ml: { xs: 0, sm: isFirst ? 0 : 2 },
-    mr: { xs: 0, sm: isLast ? 2 : 0 },
+    mt: { xs: isFirstColumn ? 0 : 2, sm: 0 },
+    mb: { xs: isLastColumn ? 2 : 0, sm: 0 },
+    ml: { xs: 0, sm: isFirstColumn ? 0 : 2 },
+    mr: { xs: 0, sm: isLastColumn ? 2 : 0 },
     bgcolor: 'action.disabledBackground',
   }
   const taskTitleStyle: SxProps<Theme> = {
@@ -50,10 +48,10 @@ export default function TaskColumn(props: colProps) {
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault()
     const taskId = event.dataTransfer.getData('text')
-    dispatch(updateTaskStatus({ id: taskId, status: name }))
+    // dispatch(updateTaskStatus({ id: taskId, status: name }))
   }
-  const colName = translate(name)
-  const taskAmount = tasks.filter((task) => task.status === name).length
+  const colName = translate(columnName)
+  const taskAmount = tasks.filter((task) => task.step === columnName).length
 
   return (
     <Paper
@@ -63,7 +61,7 @@ export default function TaskColumn(props: colProps) {
         event.preventDefault()
       }
       onDrop={handleDrop}
-      onDoubleClick={() => dispatch(toggleTaskModal('create'))}
+      onDoubleClick={() => openModal('create-task')}
     >
       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
         <Typography variant="h6" component="h6" sx={taskTitleStyle}>
@@ -75,8 +73,9 @@ export default function TaskColumn(props: colProps) {
       </Box>
 
       {tasks.map((task, taskIndex) => {
-        if (task.status === name)
-          return <TaskCard key={taskIndex} index={taskIndex} task={task} />
+        if (task.step === columnName)
+          // return <TaskCard key={taskIndex} index={taskIndex} task={task} />
+          return (<></>)
       })}
     </Paper>
   )
