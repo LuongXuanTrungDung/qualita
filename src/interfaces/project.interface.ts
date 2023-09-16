@@ -4,14 +4,14 @@ import { IUpdate } from './update.interface'
 
 export interface IProject extends IBase {
   name: string
-  description: string | null
+  description: string
   tasks: ITask[] | string[]
   steps: string[]
   updates: IUpdate[] | string[]
 }
 
 export interface IProjectSlice {
-  currentProject: string | null
+  currentProject: string
   projectData: IProject[]
 }
 

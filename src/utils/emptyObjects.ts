@@ -7,11 +7,11 @@ const emptyBase: IBase = {
   code: '', isDeleted: false, createdTS: '', lastEditedTS: null
 }
 export const emptyProject: IProject = {
-  ...emptyBase, name: '', description: null,
+  ...emptyBase, name: '', description: '',
   tasks: [], steps: ['To-Do', 'Doing', 'Done'], updates: []
 }
 export const emptyTask: ITask = {
-  ...emptyBase, name: '', description: null, priority: 1,
+  ...emptyBase, name: '', description: '', priority: 1,
   step: 'To-Do', updates: []
 }
 export const emptyUpdate: IUpdate = {

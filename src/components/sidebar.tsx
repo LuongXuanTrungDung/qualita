@@ -11,7 +11,7 @@ export default function Sidebar() {
   const { translate } = useContext(LanguageContext)
   const { activeTab, stepList } = useContext(UIContext)
 
-  const drawerWidth = 120
+  const drawerWidth = shown ? 120 : 0
   const toggleBtnStyle: SxProps = {
     p: 2, borderRadius: 2, ml: shown ? (drawerWidth / 8) : 0, mr: shown ? 1 : 0,
     my: 'calc(50vh - 2rem)'

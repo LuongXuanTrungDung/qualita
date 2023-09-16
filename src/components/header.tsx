@@ -1,5 +1,5 @@
 import { SyntheticEvent, useContext, useEffect, useState, MouseEvent } from "react"
-import { Box, IconButton, SxProps, Tab, Tabs } from "@mui/material"
+import { Box, IconButton, MenuItem, SxProps, Tab, Tabs } from "@mui/material"
 
 import AddIcon from '@mui/icons-material/Add'
 
@@ -31,7 +31,7 @@ export default function Header() {
       return (
         <>
           {projectTabs.map((project, pIndex) => (
-            <Tab key={pIndex} label={project.name} value={project.code} />
+            <MenuItem key={pIndex} value={project.code}>{project.name}</MenuItem>
           ))}
           <IconButton sx={{ '&:hover': { borderRadius: 0 } }} onClick={() => openModal('create-project')}><AddIcon /></IconButton>
         </>

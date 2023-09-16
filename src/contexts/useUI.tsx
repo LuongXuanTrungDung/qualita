@@ -10,7 +10,7 @@ const initialState: IUIContext = {
   removeStep: (index) => { },
   renameStep: (index, name) => { },
   priorityMarks: ['lowest', 'low', 'medium', 'high', 'highest'],
-  activeTab: '',
+  activeTab: 'default',
   switchTab: (tab: string) => { }
 }
 
@@ -35,7 +35,7 @@ export function UIProvider(props: PropsWithChildren) {
     setSteps(newList)
   }
 
-  const [activeTab, setActiveTab] = useState<string>('')
+  const [activeTab, setActiveTab] = useState<string>(initialState.activeTab)
   const switchTab = (tab: string) => setActiveTab(tab)
 
   const handlers = {
