@@ -1,15 +1,12 @@
+import { SxProps, Theme, Box, Stack } from '@mui/material'
 import { useContext } from 'react'
-import { useSelector } from 'react-redux'
-
-import { SxProps, Theme, Box, Button, Typography, Stack, Container } from '@mui/material'
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-
-import { SelectProject } from '@store/project.slice'
-import { LanguageContext } from '@contexts/useLanguage'
 import { UIContext } from '@contexts/useUI'
+
 import Footer from '@components/footer'
 import ModalList from '@components/common/modalList'
 import Header from '@components/header'
+import Sidebar from '@components/sidebar'
+import DefaultSpace from '@components/defaultSpace'
 
 export default function Home() {
   const containerStyle: SxProps<Theme> = {
@@ -19,46 +16,23 @@ export default function Home() {
     color: 'text.primary',
   }
   const boxStyle: SxProps = {
-    px: { xs: 0, sm: 2 },
-    pb: 2,
+    width: '95%', mx: 'auto',
+    px: { xs: 0, sm: 4 },
   }
 
-  const { translate } = useContext(LanguageContext)
-  const { openModal } = useContext(UIContext)
-  const projects = useSelector(SelectProject).projectData
-
-  const renderButtonSpace = () => {
-    const marginValue = 2
-    const buttonSpaceHeight = `calc(100vh - ${marginValue * 6}rem)`
-    const buttonStyles: SxProps = {
-      mx: 'auto', my: marginValue,
-      height: buttonSpaceHeight, width: '100%',
-      bgcolor: 'action.disabledBackground',
-      ":hover": { bgcolor: 'action.selected' }
-    }
-
-    return (
-      <Button
-        onClick={() => openModal('create-project')}
-        sx={buttonStyles}
-      >
-        <Stack flexDirection='column'>
-          <AddCircleIcon sx={{ mx: 'auto', mb: 1 }} color='success' />
-          <Typography sx={{ textAlign: 'center', mt: 1 }}>{translate('form:project.createTitle')}</Typography>
-        </Stack>
-      </Button>
-    )
-  }
+  const { activeTab } = useContext(UIContext)
 
   return (
-    <Box sx={containerStyle} component='main'>
-      <Header />
+    <Stack sx={containerStyle} component='main' flexDirection='row'>
+      {activeTab !== null && <Sidebar />}
+
       <Box sx={boxStyle} component='section'>
-        {projects.length === 0 && renderButtonSpace()}
+        <Header />
+        {activeTab === null && <DefaultSpace />}
         <Footer />
       </Box>
 
       <ModalList />
-    </Box>
+    </Stack>
   )
 }

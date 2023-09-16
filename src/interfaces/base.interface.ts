@@ -9,6 +9,7 @@ export interface IBase {
 
 export interface IUIContext {
   activeModal: string | null
+  activeTab: string
   stepList: string[]
   priorityMarks: string[]
   openModal: (code: string) => void
@@ -16,6 +17,7 @@ export interface IUIContext {
   renameStep: (index: number, newName: string) => void
   addStep: (step: string) => void
   removeStep: (index: number) => void
+  switchTab: (tab: string) => void
 }
 
 export interface IFileContext {

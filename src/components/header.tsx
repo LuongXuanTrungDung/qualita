@@ -1,55 +1,63 @@
-import { SyntheticEvent, useContext, useEffect, useState, MouseEvent, useRef, FormEvent } from "react"
-import { Box, IconButton, SxProps, Tab, Tabs, MenuItem, Typography, useTheme, Switch, Select, SelectChangeEvent, ListItemIcon } from "@mui/material"
+import { SyntheticEvent, useContext, useEffect, useState, MouseEvent } from "react"
+import { Box, IconButton, SxProps, Tab, Tabs } from "@mui/material"
 
 import AddIcon from '@mui/icons-material/Add'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-import { SelectProject } from "@store/project.slice"
-import { useSelector } from "react-redux"
 import { UIContext } from "@contexts/useUI";
+import { LanguageContext } from "@contexts/useLanguage";
 import KanbanBoard from "@components/kanban/board";
-import HeaderMenu from "./menu/header.menu";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { ProjectContext } from "@contexts/useProject";
+import DefaultSpace from "./defaultSpace";
 
 export default function Header() {
-  const { openModal } = useContext(UIContext)
-  const [anchor, setAnchor] = useState<null | HTMLElement>(null);
-  const openMenu = (event: MouseEvent<HTMLElement>) => setAnchor(event.currentTarget)
+  const { openModal, switchTab, activeTab } = useContext(UIContext)
+  const { translate } = useContext(LanguageContext)
 
-  const [tab, setTab] = useState(0)
-  const projects = useSelector(SelectProject).projectData
-  const [projectTab, setProjectTab] = useState<string>('')
-  const tabStyle: SxProps = { p: 2 }
-
+  const { fetchProjects } = useContext(ProjectContext)
+  const [projectTabs, setProjectTabs] = useState(fetchProjects())
+  const tabStyle: SxProps = { width: '100%', py: 2 }
   useEffect(() => {
-    if (projectTab === null && projects.length > 0) {
-      setProjectTab(projects[0].code)
+    if (projectTabs.length === 0) {
+      setProjectTabs(fetchProjects())
     }
-  }, [projectTab, projects])
-  const handleSwitchTab = (event: SyntheticEvent, newTab: string) => setProjectTab(newTab)
+  }, [fetchProjects, projectTabs.length])
 
-  const renderTabPanel = (value: number, index: number) => {
-    return (
-      <div role="tabpanel" hidden={value !== index}>
-        {value === index && (
-          <KanbanBoard />
-        )}
-      </div>
-    )
+  const handleSwitchTab = (event: SyntheticEvent, newTab: string) => switchTab(newTab)
+  const renderTabs = () => {
+    if (projectTabs.length === 0) {
+      return <Tab label={translate('form:project.createTitle')} value={'default'} />
+    } else {
+      return (
+        <>
+          {projectTabs.map((project, pIndex) => (
+            <Tab key={pIndex} label={project.name} value={project.code} />
+          ))}
+          <IconButton sx={{ '&:hover': { borderRadius: 0 } }} onClick={() => openModal('create-project')}><AddIcon /></IconButton>
+        </>
+      )
+    }
   }
 
   return (
     <Box sx={tabStyle} component='header'>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs onChange={handleSwitchTab} value={tab}>
-          {projects.map((project, pIndex) => <Tab key={pIndex} label={project.name} />)}
-          <IconButton sx={{ '&:hover': { borderRadius: 0 } }} onClick={() => openModal('create-project')}><AddIcon /></IconButton>
-          <IconButton sx={{ '&:hover': { borderRadius: 0 } }} onClick={openMenu}><MoreHorizIcon /></IconButton>
-        </Tabs>
+      <TabContext value={activeTab}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }} component='nav'>
+          <TabList onChange={handleSwitchTab}>
+            {renderTabs()}
+            <Tab label={translate('common:Settings')} value={'settings'} />
+          </TabList>
+        </Box>
 
-        <HeaderMenu anchorState={[anchor, setAnchor]} />
-      </Box>
-
-      {projects.map((project, pIndex) => renderTabPanel(tab, pIndex))}
-    </Box >
+        {
+          projectTabs.length === 0
+            ? <TabPanel value="default"><DefaultSpace /></TabPanel>
+            : projectTabs.map((project, pIndex) => (
+              <TabPanel key={pIndex} value={project.code}><KanbanBoard /></TabPanel>
+            ))
+        }
+        <TabPanel value="settings"></TabPanel>
+      </TabContext>
+    </Box>
   )
 }

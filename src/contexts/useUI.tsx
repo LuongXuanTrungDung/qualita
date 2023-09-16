@@ -9,7 +9,9 @@ const initialState: IUIContext = {
   addStep: (step) => { },
   removeStep: (index) => { },
   renameStep: (index, name) => { },
-  priorityMarks: ['lowest', 'low', 'medium', 'high', 'highest']
+  priorityMarks: ['lowest', 'low', 'medium', 'high', 'highest'],
+  activeTab: '',
+  switchTab: (tab: string) => { }
 }
 
 export const UIContext = createContext(initialState)
@@ -33,9 +35,15 @@ export function UIProvider(props: PropsWithChildren) {
     setSteps(newList)
   }
 
-  const handlers = { openModal, closeModal, removeStep, renameStep, addStep }
+  const [activeTab, setActiveTab] = useState<string>('')
+  const switchTab = (tab: string) => setActiveTab(tab)
+
+  const handlers = {
+    openModal, closeModal, switchTab,
+    removeStep, renameStep, addStep
+  }
   const states = {
-    stepList: steps, activeModal: modal,
+    stepList: steps, activeModal: modal, activeTab: activeTab,
     priorityMarks: initialState.priorityMarks
   }
 
