@@ -13,7 +13,3 @@ export interface ITaskSlice {
   currentTask: string | null
   taskData: ITask[]
 }
-
-export interface ITaskContext {
-  findTask: (taskCode: string) => ITask | null
-}

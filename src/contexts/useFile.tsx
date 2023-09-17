@@ -6,11 +6,10 @@ import { setProjectData } from '@store/project.slice'
 import { IProject } from '@interfaces/project.interface'
 import { ITask } from '@interfaces/task.interface'
 import { setTaskData } from '@store/task.slice'
-import { IFileContext } from '@interfaces/base.interface'
 import { IUpdate } from '@interfaces/update.interface'
 import { setUpdateData } from '@store/update.slice'
 
-const initialState: IFileContext = {
+const initialState = {
   exportData: () => { },
   importData: (event: FormEvent<HTMLInputElement>) => new Promise<void>(() => { }),
 }

@@ -1,13 +1,12 @@
 import { createContext, PropsWithChildren } from 'react'
 import setLanguage from 'next-translate/setLanguage'
 import useTranslation from 'next-translate/useTranslation'
-import { ILanguageContext } from '@interfaces/base.interface'
 
-const initialState: ILanguageContext = {
-  allLanguages: [],
+const initialState = {
+  allLanguages: [{ name: '', locale: '' }],
   currentLanguage: 'vi',
-  translate: (text) => '',
-  switchLanguage: (lang) => { }
+  translate: (text: string) => '',
+  switchLanguage: (lang: string) => { }
 }
 
 export const LanguageContext = createContext(initialState)

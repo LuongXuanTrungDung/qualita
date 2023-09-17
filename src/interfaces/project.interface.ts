@@ -14,8 +14,3 @@ export interface IProjectSlice {
   currentProject: string
   projectData: IProject[]
 }
-
-export interface IProjectContext {
-  findProject: (code: string) => IProject | null
-  fetchProjects: () => IProject[]
-}

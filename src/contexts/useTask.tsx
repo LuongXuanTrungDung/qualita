@@ -1,13 +1,14 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
 import { useSelector } from 'react-redux'
 
-import { ITask, ITaskContext } from '@interfaces/task.interface'
+import { ITask } from '@interfaces/task.interface'
 import { SelectTask } from '@store/task.slice'
 import { IUpdate } from '@interfaces/update.interface'
 import { UpdateContext } from './useUpdate'
+import { emptyTask, emptyUpdate } from '@utils/emptyObjects'
 
-const initialState: ITaskContext = {
-  findTask: (code: string) => null,
+const initialState = {
+  findTask: (code: string) => emptyTask,
 }
 
 export const TaskContext = createContext(initialState)
@@ -19,7 +20,7 @@ export function TaskProvider(props: PropsWithChildren) {
     const updates: IUpdate[] = []
     task.updates.forEach((u) => {
       const findQuery = findUpdate(u as string)
-      if (findQuery) updates.push(findQuery)
+      if (findQuery !== emptyUpdate) updates.push(findQuery)
     })
     return updates
   }
@@ -34,7 +35,7 @@ export function TaskProvider(props: PropsWithChildren) {
       }
       return result
     }
-    return null
+    return emptyTask
   }
 
   return (

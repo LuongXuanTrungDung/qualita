@@ -8,7 +8,3 @@ export interface IUpdateSlice {
   currentUpdate: string | null
   updateData: IUpdate[]
 }
-
-export interface IUpdateContext {
-  findUpdate: (updateCode: string) => IUpdate | null
-}

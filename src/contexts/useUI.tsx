@@ -1,14 +1,14 @@
 import { IUIContext } from '@interfaces/base.interface'
 import { createContext, PropsWithChildren, useState } from 'react'
 
-const initialState: IUIContext = {
-  activeModal: null,
-  openModal: (code) => { },
+const initialState = {
+  activeModal: '',
+  openModal: (code: string) => { },
   closeModal: () => { },
   stepList: ['To-Do', 'Doing', 'Done'],
-  addStep: (step) => { },
-  removeStep: (index) => { },
-  renameStep: (index, name) => { },
+  addStep: (step: string) => { },
+  removeStep: (index: number) => { },
+  renameStep: (index: number, name: string) => { },
   priorityMarks: ['lowest', 'low', 'medium', 'high', 'highest'],
   activeTab: 'default',
   switchTab: (tab: string) => { }
@@ -16,9 +16,9 @@ const initialState: IUIContext = {
 
 export const UIContext = createContext(initialState)
 export function UIProvider(props: PropsWithChildren) {
-  const [modal, setModal] = useState<string | null>(initialState.activeModal)
+  const [modal, setModal] = useState<string>(initialState.activeModal)
   const openModal = (value: string) => setModal(value)
-  const closeModal = () => setModal(null)
+  const closeModal = () => setModal('')
 
   const [steps, setSteps] = useState<string[]>(initialState.stepList)
   const addStep = (step: string) => {

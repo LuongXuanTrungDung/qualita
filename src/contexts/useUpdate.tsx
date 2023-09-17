@@ -1,11 +1,11 @@
 import { createContext, PropsWithChildren } from 'react'
 import { useSelector } from 'react-redux'
 
-import { IUpdateContext } from '@interfaces/update.interface'
 import { SelectUpdate } from '@store/update.slice'
+import { emptyUpdate } from '@utils/emptyObjects'
 
-const initialState: IUpdateContext = {
-  findUpdate: (code: string) => null,
+const initialState = {
+  findUpdate: (code: string) => emptyUpdate,
 }
 
 export const UpdateContext = createContext(initialState)
@@ -14,7 +14,7 @@ export function UpdateProvider(props: PropsWithChildren) {
 
   const findUpdate = (updateCode: string) => {
     const index = allUpdates.findIndex((u) => u.code === updateCode)
-    return index > -1 ? allUpdates[index] : null
+    return index > -1 ? allUpdates[index] : emptyUpdate
   }
 
   return (

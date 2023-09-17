@@ -1,16 +1,17 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
 import { useSelector } from 'react-redux'
 
-import { IProject, IProjectContext } from '@interfaces/project.interface'
+import { IProject } from '@interfaces/project.interface'
 import { SelectProject } from '@store/project.slice'
 import { TaskContext } from './useTask'
 import { ITask } from '@interfaces/task.interface'
 import { IUpdate } from '@interfaces/update.interface'
 import { UpdateContext } from './useUpdate'
+import { emptyProject, emptyTask, emptyUpdate } from '@utils/emptyObjects'
 
-const initialState: IProjectContext = {
-  findProject: (code: string) => null,
-  fetchProjects: () => []
+const initialState = {
+  findProject: (code: string) => emptyProject,
+  fetchProjects: () => [emptyProject]
 }
 
 export const ProjectContext = createContext(initialState)
@@ -24,7 +25,7 @@ export function ProjectProvider(props: PropsWithChildren) {
     if (project.tasks.length > 0) {
       project.tasks.forEach((t) => {
         const findQuery = findTask(t as string)
-        if (findQuery) tasks.push(findQuery)
+        if (findQuery !== emptyTask) tasks.push(findQuery)
       })
     }
     return tasks
@@ -35,7 +36,7 @@ export function ProjectProvider(props: PropsWithChildren) {
     if (project.updates.length > 0) {
       project.updates.forEach((u) => {
         const findQuery = findUpdate(u as string)
-        if (findQuery) updates.push(findQuery)
+        if (findQuery !== emptyUpdate) updates.push(findQuery)
       })
     }
     return updates
@@ -52,7 +53,7 @@ export function ProjectProvider(props: PropsWithChildren) {
       }
       return result
     }
-    return null
+    return emptyProject
   }
 
   const fetchProjects = () => {
