@@ -4,7 +4,10 @@ import { useMediaQuery } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import { customPalette } from '@utils/customPalette'
 
-export const ColorModeContext = createContext({ toggleColorMode: () => { } })
+export const ColorModeContext = createContext({
+  toggleMode: () => { },
+  switchMode: (mode: 'light' | 'dark' | null) => {}
+})
 export function ColorModeProvider(props: PropsWithChildren) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const [mode, setMode] = useState<'light' | 'dark'>(
@@ -12,13 +15,17 @@ export function ColorModeProvider(props: PropsWithChildren) {
   )
   useEffect(() => { setMode(prefersDarkMode ? 'dark' : 'light') }, [prefersDarkMode])
 
-  const switchMode = useMemo(
+  const modeFn = useMemo(
     () => ({
-      toggleColorMode: () => {
+      toggleMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
       },
+      switchMode: (mode: 'light' | 'dark' | null) => {
+        if (mode) setMode(mode)
+        else setMode(prefersDarkMode ? 'dark' : 'light')
+      }
     }),
-    [],
+    [prefersDarkMode],
   )
   const colorTheme = useMemo(
     () =>
@@ -32,7 +39,7 @@ export function ColorModeProvider(props: PropsWithChildren) {
   )
 
   return (
-    <ColorModeContext.Provider value={switchMode} >
+    <ColorModeContext.Provider value={modeFn} >
       <CssBaseline />
       <ThemeProvider theme={colorTheme}>{props.children}</ThemeProvider>
     </ColorModeContext.Provider >

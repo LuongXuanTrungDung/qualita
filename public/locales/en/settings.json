@@ -1,0 +1,12 @@
+{
+  "namesake": "Settings",
+  "ui": "Appearance",
+  "set_color": "Choose color mode",
+  "light": "Light",
+  "dark": "Dark",
+  "set_lang": "Select a language",
+  "en": "English",
+  "vi": "Vietnamese",
+  "import": "Import data",
+  "export": "Export data"
+}

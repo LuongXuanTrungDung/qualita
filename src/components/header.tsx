@@ -1,14 +1,16 @@
 import { SyntheticEvent, useContext, useEffect, useState, MouseEvent } from "react"
 import { Box, IconButton, MenuItem, SxProps, Tab, Tabs } from "@mui/material"
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 
 import AddIcon from '@mui/icons-material/Add'
 
 import { UIContext } from "@contexts/useUI";
 import { LanguageContext } from "@contexts/useLanguage";
 import KanbanBoard from "@components/kanban/board";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { ProjectContext } from "@contexts/useProject";
+
 import DefaultSpace from "./defaultSpace";
+import SettingsContent from "./settings/settings.content";
 
 export default function Header() {
   const { openModal, switchTab, activeTab } = useContext(UIContext)
@@ -45,7 +47,7 @@ export default function Header() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }} component='nav'>
           <TabList onChange={handleSwitchTab}>
             {renderTabs()}
-            <Tab label={translate('common:Settings')} value={'settings'} />
+            <Tab label={translate('settings:namesake')} value={'settings'} />
           </TabList>
         </Box>
 
@@ -56,7 +58,7 @@ export default function Header() {
               <TabPanel key={pIndex} value={project.code}><KanbanBoard /></TabPanel>
             ))
         }
-        <TabPanel value="settings"></TabPanel>
+        <TabPanel value="settings"><SettingsContent /></TabPanel>
       </TabContext>
     </Box>
   )

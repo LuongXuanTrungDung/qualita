@@ -29,6 +29,8 @@ export interface IMenuProps {
   anchorState: [HTMLElement | null, (el: HTMLElement | null) => void]
 }
 
+export type SwitchModeType = 'light' | 'dark' | null
+
 interface ILanguage {
   name: string,
   locale: string
