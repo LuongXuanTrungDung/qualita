@@ -8,12 +8,14 @@ import Stack from '@mui/material/Stack'
 
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import DragHandleIcon from '@mui/icons-material/DragHandle'
+import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown'
 
 import { ITask } from '@interfaces/task.interface'
-import { setCurrentTask, toggleTaskModal } from '@store/task.slice'
+import { setCurrentTask } from '@store/task.slice'
+import { useContext } from 'react'
+import { UIContext } from '@contexts/useUI'
 
 interface cardProps {
   task: ITask
@@ -27,6 +29,7 @@ const cardStyle: SxProps<Theme> = {
 
 export function TaskCard(props: cardProps) {
   const { task, index } = props
+  const {openModal} = useContext(UIContext)
   const dispatch = useDispatch()
 
   const renderIcon = (prio: number) => {
@@ -40,10 +43,10 @@ export function TaskCard(props: cardProps) {
         )
       case 4:
         return (
-          <KeyboardArrowUpIcon color="warning" sx={{ marginLeft: 'auto' }} />
+          <KeyboardArrowUpIcon color="error" sx={{ marginLeft: 'auto' }} />
         )
       case 3:
-        return <DragHandleIcon color="success" sx={{ marginLeft: 'auto' }} />
+        return <MenuIcon color="warning" sx={{ marginLeft: 'auto' }} />
       case 2:
         return (
           <KeyboardArrowDownIcon color="info" sx={{ marginLeft: 'auto' }} />
@@ -51,7 +54,7 @@ export function TaskCard(props: cardProps) {
       case 1:
         return (
           <KeyboardDoubleArrowDownIcon
-            color="secondary"
+            color="info"
             sx={{ marginLeft: 'auto' }}
           />
         )
@@ -61,8 +64,8 @@ export function TaskCard(props: cardProps) {
   }
 
   const handleClick = () => {
-    dispatch(setCurrentTask(task.id))
-    dispatch(toggleTaskModal('edit'))
+    dispatch(setCurrentTask(task.code))
+    openModal('edit-task')
   }
 
   const handleDragStart = (
@@ -77,7 +80,7 @@ export function TaskCard(props: cardProps) {
       component="div"
       onClick={handleClick}
       draggable
-      onDragStart={(e) => handleDragStart(e, task.id)}
+      onDragStart={(e) => handleDragStart(e, task.code)}
       sx={cardStyle}
     >
       <CardContent>

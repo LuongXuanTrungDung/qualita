@@ -3,6 +3,7 @@ import { AppState } from '.'
 import { HYDRATE } from 'next-redux-wrapper'
 import { ITask, ITaskSlice } from '@interfaces/task.interface'
 import { emptyTask } from '@utils/emptyObjects'
+import { IUpdate } from '@interfaces/update.interface'
 
 // Initial state
 const initialState: ITaskSlice = {
@@ -54,7 +55,17 @@ export const taskSlice = createSlice({
       }
     },
 
-    addUpdate_intoTask(state, action: PayloadAction<string>) {
+    updateTaskStatus(state, action: PayloadAction<{ code: string, step: string }>) {
+      const { code, step } = action.payload
+      const taskIndex = state.taskData.findIndex(t => t.code === code)
+
+      if (taskIndex > -1) {
+        state.taskData[taskIndex].step = step
+        state.taskData[taskIndex].lastEditedTS = new Date().toLocaleDateString()
+      }
+    },
+
+    addUpdate_intoTask(state, action: PayloadAction<IUpdate>) {
       if (state.currentTask) {
         const payload = action.payload
         const projectIndex = state.taskData.findIndex(
@@ -62,7 +73,7 @@ export const taskSlice = createSlice({
         )
 
         const project = state.taskData[projectIndex]
-        const projectUpdates = project.updates as string[]
+        const projectUpdates = project.updates
         if (!projectUpdates.includes(payload)) {
           projectUpdates.push(payload)
         }
@@ -86,6 +97,7 @@ export const {
   editTask,
   setCurrentTask,
   setTaskData,
+  updateTaskStatus,
   addUpdate_intoTask
 } = taskSlice.actions
 

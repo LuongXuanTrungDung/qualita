@@ -1,13 +1,9 @@
-import { createContext, PropsWithChildren, useContext } from 'react'
+import { createContext, PropsWithChildren } from 'react'
 import { useSelector } from 'react-redux'
 
 import { IProject } from '@interfaces/project.interface'
 import { SelectProject } from '@store/project.slice'
-import { TaskContext } from './useTask'
-import { ITask } from '@interfaces/task.interface'
-import { IUpdate } from '@interfaces/update.interface'
-import { UpdateContext } from './useUpdate'
-import { emptyProject, emptyTask, emptyUpdate } from '@utils/emptyObjects'
+import { emptyProject } from '@utils/emptyObjects'
 
 const initialState = {
   findProject: (code: string) => emptyProject,
@@ -17,43 +13,10 @@ const initialState = {
 export const ProjectContext = createContext(initialState)
 export function ProjectProvider(props: PropsWithChildren) {
   const allProjects = useSelector(SelectProject).projectData
-  const { findTask } = useContext(TaskContext)
-  const { findUpdate } = useContext(UpdateContext)
-
-  const populateTask = (project: IProject) => {
-    const tasks: ITask[] = []
-    if (project.tasks.length > 0) {
-      project.tasks.forEach((t) => {
-        const findQuery = findTask(t as string)
-        if (findQuery !== emptyTask) tasks.push(findQuery)
-      })
-    }
-    return tasks
-  }
-
-  const populateUpdate = (project: IProject) => {
-    const updates: IUpdate[] = []
-    if (project.updates.length > 0) {
-      project.updates.forEach((u) => {
-        const findQuery = findUpdate(u as string)
-        if (findQuery !== emptyUpdate) updates.push(findQuery)
-      })
-    }
-    return updates
-  }
 
   const findProject = (code: string) => {
     const index = allProjects.findIndex((p) => p.code === code)
-    if (index > -1) {
-      const project = allProjects[index]
-      const result: IProject = {
-        ...project,
-        tasks: populateTask(project), // Populate project's tasks
-        updates: populateUpdate(project) // Populate project's updates
-      }
-      return result
-    }
-    return emptyProject
+    return index > -1 ? allProjects[index] : emptyProject
   }
 
   const fetchProjects = () => {

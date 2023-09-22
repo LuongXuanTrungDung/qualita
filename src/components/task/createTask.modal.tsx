@@ -15,7 +15,7 @@ import {
 import { SelectChangeEvent } from '@mui/material/Select'
 
 import { addTask } from '@store/task.slice'
-import { SelectProject } from '@store/project.slice'
+import { SelectProject, addTask_intoProject } from '@store/project.slice'
 import { LanguageContext } from '@contexts/useLanguage'
 import useWindowSize from '@hooks/useWindowSize'
 import { ProjectContext } from '@contexts/useProject'
@@ -69,6 +69,7 @@ export default function CreateTaskModal() {
 
   const handleSubmit = () => {
     dispatch(addTask(formData))
+    dispatch(addTask_intoProject(formData.code))
     handleClose()
   }
 
@@ -89,16 +90,11 @@ export default function CreateTaskModal() {
       }
     >
       <Stack
-        spacing={2}
-        useFlexGap
-        flexWrap="wrap"
-        alignItems="center"
-        justifyContent="center"
         direction={breakpoint === 'xs' ? 'column' : 'row'}
+        sx={{ pb: 1.5 }}
       >
         <TextField
-          autoFocus
-          margin="normal"
+          sx={{ mr: { xs: 0, sm: 2 }, mb: { xs: 2, sm: 0 }, width: '100%' }}
           name="task-name"
           label={translate('form:task.nameInput')}
           type="text"
@@ -107,8 +103,7 @@ export default function CreateTaskModal() {
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
         <TextField
-          autoFocus
-          margin="normal"
+          sx={{ mx: { xs: 0, sm: 2 }, my: { xs: 2, sm: 0 }, width: '100%' }}
           name="task-code"
           label={translate('form:task.codeInput')}
           type="text"
@@ -116,7 +111,7 @@ export default function CreateTaskModal() {
           value={formData.code}
           onChange={(e) => setFormData({ ...formData, code: e.target.value })}
         />
-        <FormControl sx={{ mt: 1 }}>
+        <FormControl sx={{ ml: { xs: 0, sm: 2 }, mt: { xs: 2, sm: 0 }, width: '100%' }}>
           <InputLabel shrink id="task-status-label">
             {translate('form:task.statusInput')}
           </InputLabel>
@@ -138,7 +133,7 @@ export default function CreateTaskModal() {
         </FormControl>
       </Stack>
       <Stack
-        sx={{ mx: 1.5, mt: { xs: 3, sm: 0 } }}
+        sx={{ mx: 1.5, py: { xs: 3, sm: 0 } }}
         spacing={2}
         alignItems="center"
         justifyContent="center"
@@ -161,14 +156,11 @@ export default function CreateTaskModal() {
         />
       </Stack>
       <TextField
-        autoFocus
         multiline
-        rows={4}
-        margin="normal"
+        rows={6}
         name="task-desc"
         label={translate('form:task.descInput')}
         type="text"
-        fullWidth
         variant="standard"
         value={formData.description}
         onChange={(e) =>

@@ -5,9 +5,9 @@ import { IUpdate } from './update.interface'
 export interface IProject extends IBase {
   name: string
   description: string
-  tasks: ITask[] | string[]
+  tasks: ITask[]
   steps: string[]
-  updates: IUpdate[] | string[]
+  updates: IUpdate[]
 }
 
 export interface IProjectSlice {

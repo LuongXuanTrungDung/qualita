@@ -5,6 +5,8 @@ import {
 } from '@/interfaces/project.interface'
 import { HYDRATE } from 'next-redux-wrapper'
 import { emptyProject } from '@utils/emptyObjects'
+import { ITask } from '@interfaces/task.interface'
+import { IUpdate } from '@interfaces/update.interface'
 
 // Initial state
 const initialState: IProjectSlice = {
@@ -63,7 +65,7 @@ export const projectSlice = createSlice({
       }
     },
 
-    addTask_intoProject(state, action: PayloadAction<string>) {
+    addTask_intoProject(state, action: PayloadAction<ITask>) {
       if (state.currentProject) {
         const payload = action.payload
         const projectIndex = state.projectData.findIndex(
@@ -71,14 +73,14 @@ export const projectSlice = createSlice({
         )
 
         const project = state.projectData[projectIndex]
-        const projectTasks = project.tasks as string[]
+        const projectTasks = project.tasks
         if (!projectTasks.includes(payload)) {
           projectTasks.push(payload)
         }
       }
     },
 
-    addUpdate_intoProject(state, action: PayloadAction<string>) {
+    addUpdate_intoProject(state, action: PayloadAction<IUpdate>) {
       if (state.currentProject) {
         const payload = action.payload
         const projectIndex = state.projectData.findIndex(
@@ -86,7 +88,7 @@ export const projectSlice = createSlice({
         )
 
         const project = state.projectData[projectIndex]
-        const projectUpdates = project.updates as string[]
+        const projectUpdates = project.updates
         if (!projectUpdates.includes(payload)) {
           projectUpdates.push(payload)
         }

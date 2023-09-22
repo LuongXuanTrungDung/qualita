@@ -6,7 +6,7 @@ export interface ITask extends IBase {
   description: string | null
   priority: number
   step: string
-  updates: IUpdate[] | string[]
+  updates: IUpdate[]
 }
 
 export interface ITaskSlice {

@@ -6,10 +6,10 @@ import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-import { SelectTask } from '@store/task.slice'
-// import { TaskCard } from './taskCard'
+import { SelectTask, updateTaskStatus } from '@store/task.slice'
 import { LanguageContext } from '@contexts/useLanguage'
 import { UIContext } from '@contexts/useUI'
+import { TaskCard } from './card'
 
 interface colProps {
   columnName: string
@@ -48,7 +48,7 @@ export default function TaskColumn(props: colProps) {
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault()
     const taskId = event.dataTransfer.getData('text')
-    // dispatch(updateTaskStatus({ id: taskId, status: name }))
+    dispatch(updateTaskStatus({ code: taskId, step: columnName }))
   }
   const colName = translate(columnName)
   const taskAmount = tasks.filter((task) => task.step === columnName).length
@@ -74,8 +74,7 @@ export default function TaskColumn(props: colProps) {
 
       {tasks.map((task, taskIndex) => {
         if (task.step === columnName)
-          // return <TaskCard key={taskIndex} index={taskIndex} task={task} />
-          return (<></>)
+          return <TaskCard key={taskIndex} index={taskIndex} task={task} />
       })}
     </Paper>
   )

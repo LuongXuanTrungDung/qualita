@@ -47,7 +47,7 @@ export default function CreateProjectModal() {
         sx={{ pb: 2 }}
       >
         <TextField
-          sx={{ mr: 2, width: '100%' }}
+          sx={{ mr: { xs: 0, sm: 2 }, mb: { xs: 2, sm: 0 }, width: '100%' }}
           name="project-title"
           label={translate('form:project.nameInput')}
           type="text"
@@ -56,7 +56,7 @@ export default function CreateProjectModal() {
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
         <TextField
-          sx={{ ml: 2, width: '100%' }}
+          sx={{ ml: { xs: 0, sm: 2 }, mt: { xs: 2, sm: 0 }, width: '100%' }}
           name="project-code"
           label={translate('form:project.codeInput')}
           type="text"
