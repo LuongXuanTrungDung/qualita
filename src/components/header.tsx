@@ -31,12 +31,9 @@ export default function Header() {
       return <Tab label={translate('form:project.createTitle')} value={'default'} />
     } else {
       return (
-        <>
-          {projectTabs.map((project, pIndex) => (
-            <MenuItem key={pIndex} value={project.code}>{project.name}</MenuItem>
-          ))}
-          <IconButton sx={{ '&:hover': { borderRadius: 0 } }} onClick={() => openModal('create-project')}><AddIcon /></IconButton>
-        </>
+        projectTabs.map((project, pIndex) => (
+          <Tab key={pIndex} value={project.code} label={project.name} />
+        ))
       )
     }
   }
@@ -47,7 +44,8 @@ export default function Header() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }} component='nav'>
           <TabList onChange={handleSwitchTab}>
             {renderTabs()}
-            <Tab label={translate('settings:namesake')} value={'settings'} />
+            <IconButton sx={{ '&:hover': { borderRadius: 0 } }} onClick={() => openModal('create-project')}><AddIcon /></IconButton>
+            <Tab sx={{ ml: 'auto' }} label={translate('settings:namesake')} value={'settings'} />
           </TabList>
         </Box>
 

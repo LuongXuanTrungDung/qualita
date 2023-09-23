@@ -2,12 +2,13 @@ import { createContext, PropsWithChildren, useContext, FormEvent } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ProjectContext } from './useProject'
-import { setProjectData } from '@store/project.slice'
+import { setCurrentProject, setProjectData } from '@store/project.slice'
 import { IProject } from '@interfaces/project.interface'
 import { ITask } from '@interfaces/task.interface'
 import { setTaskData } from '@store/task.slice'
 import { IUpdate } from '@interfaces/update.interface'
 import { setUpdateData } from '@store/update.slice'
+import { UIContext } from './useUI'
 
 const initialState = {
   exportData: () => { },
@@ -18,6 +19,7 @@ export const FileContext = createContext(initialState)
 export function FileProvider(props: PropsWithChildren) {
   const dispatch = useDispatch()
   const { fetchProjects } = useContext(ProjectContext)
+  const { switchTab } = useContext(UIContext)
 
   const exportData = () => {
     const allProjects = fetchProjects ? fetchProjects() : []
@@ -52,6 +54,8 @@ export function FileProvider(props: PropsWithChildren) {
       dispatch(setProjectData(importedProjects))
       dispatch(setTaskData(importedTasks))
       dispatch(setUpdateData(importedUpdates))
+      dispatch(setCurrentProject(importedProjects[0].code))
+      switchTab(importedProjects[0].code)
     }
   }
 

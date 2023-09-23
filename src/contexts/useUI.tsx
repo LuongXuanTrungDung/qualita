@@ -1,4 +1,3 @@
-import { IUIContext } from '@interfaces/base.interface'
 import { createContext, PropsWithChildren, useState } from 'react'
 
 const initialState = {
