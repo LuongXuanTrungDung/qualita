@@ -9,7 +9,13 @@ export interface ITask extends IBase {
   updates: IUpdate[]
 }
 
+export interface ITaskData {
+  code: string
+  step: string
+  updates: string[]
+}
+
 export interface ITaskSlice {
-  currentTask: string | null
+  currentTask: ITaskData
   taskData: ITask[]
 }

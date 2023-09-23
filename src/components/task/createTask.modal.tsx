@@ -18,10 +18,8 @@ import { addTask } from '@store/task.slice'
 import { SelectProject, addTask_intoProject } from '@store/project.slice'
 import { LanguageContext } from '@contexts/useLanguage'
 import useWindowSize from '@hooks/useWindowSize'
-import { ProjectContext } from '@contexts/useProject'
-import { IProject } from '@interfaces/project.interface'
 import { ITask } from '@interfaces/task.interface'
-import { emptyProject, emptyTask } from '@utils/emptyObjects'
+import { emptyTask } from '@utils/emptyObjects'
 import { UIContext } from '@contexts/useUI'
 import ModalWrapper from '@components/common/modal.wrapper'
 import { IMark } from '@interfaces/base.interface'
@@ -30,7 +28,6 @@ export default function CreateTaskModal() {
   const dispatch = useDispatch()
   const breakpoint = useWindowSize().breakpoint
   const { translate } = useContext(LanguageContext)
-  const { findProject } = useContext(ProjectContext)
   const { closeModal, activeModal, stepList, priorityMarks } = useContext(UIContext)
 
   const [mark, setMark] = useState<IMark[]>([])
@@ -47,29 +44,23 @@ export default function CreateTaskModal() {
   const [open, setOpen] = useState(false)
   useEffect(() => setOpen(activeModal === 'create-task'), [activeModal])
 
-  const [project, setProject] = useState<IProject>(emptyProject)
-  const projectCode = useSelector(SelectProject).currentProject
-  useEffect(() => {
-    const currentProject = projectCode ? findProject(projectCode) : null
-    if (currentProject) setProject(currentProject)
-  }, [findProject, projectCode])
-
+  const project = useSelector(SelectProject).currentProject
   const [formData, setFormData] = useState<ITask>({
     ...emptyTask,
-    code: project ? project.code + '-' : emptyTask.code,
+    code: project ? project + '-' : emptyTask.code,
   })
+  useEffect(() => {
+    setFormData({ ...formData, code: project.code + '-' + String(project.tasks.length + 1) })
+  }, [formData, project])
 
   const handleClose = () => {
-    setFormData({
-      ...emptyTask,
-      code: project ? project.code + '-' : emptyTask.code,
-    })
+    setFormData(emptyTask)
     closeModal()
   }
 
   const handleSubmit = () => {
     dispatch(addTask(formData))
-    dispatch(addTask_intoProject(formData.code))
+    dispatch(addTask_intoProject(formData))
     handleClose()
   }
 
@@ -91,7 +82,7 @@ export default function CreateTaskModal() {
     >
       <Stack
         direction={breakpoint === 'xs' ? 'column' : 'row'}
-        sx={{ pb: 1.5 }}
+        sx={{ pb: 2 }}
       >
         <TextField
           sx={{ mr: { xs: 0, sm: 2 }, mb: { xs: 2, sm: 0 }, width: '100%' }}
@@ -109,7 +100,7 @@ export default function CreateTaskModal() {
           type="text"
           variant="standard"
           value={formData.code}
-          onChange={(e) => setFormData({ ...formData, code: e.target.value })}
+          disabled
         />
         <FormControl sx={{ ml: { xs: 0, sm: 2 }, mt: { xs: 2, sm: 0 }, width: '100%' }}>
           <InputLabel shrink id="task-status-label">
@@ -133,7 +124,7 @@ export default function CreateTaskModal() {
         </FormControl>
       </Stack>
       <Stack
-        sx={{ mx: 1.5, py: { xs: 3, sm: 0 } }}
+        sx={{ mx: 4, py: 4 }}
         spacing={2}
         alignItems="center"
         justifyContent="center"
@@ -156,6 +147,7 @@ export default function CreateTaskModal() {
         />
       </Stack>
       <TextField
+        sx={{ pt: 2, width: '100%' }}
         multiline
         rows={6}
         name="task-desc"

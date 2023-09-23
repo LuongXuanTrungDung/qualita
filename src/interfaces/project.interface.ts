@@ -10,7 +10,14 @@ export interface IProject extends IBase {
   updates: IUpdate[]
 }
 
+export interface IProjectData {
+  code: string
+  steps: string[]
+  tasks: string[]
+  updates: string[]
+}
+
 export interface IProjectSlice {
-  currentProject: string
+  currentProject: IProjectData,
   projectData: IProject[]
 }

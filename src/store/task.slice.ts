@@ -2,12 +2,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { AppState } from '.'
 import { HYDRATE } from 'next-redux-wrapper'
 import { ITask, ITaskSlice } from '@interfaces/task.interface'
-import { emptyTask } from '@utils/emptyObjects'
 import { IUpdate } from '@interfaces/update.interface'
+import { emptyTaskData, getTaskData } from '@utils/emptyData'
 
 // Initial state
 const initialState: ITaskSlice = {
-  currentTask: emptyTask.code,
+  currentTask: emptyTaskData,
   taskData: [],
 }
 
@@ -20,7 +20,7 @@ export const taskSlice = createSlice({
       const payload = action.payload
       const taskIndex = state.taskData.findIndex(t => t.code === payload)
       if (taskIndex > -1) {
-        state.currentTask = state.taskData[taskIndex].code
+        state.currentTask = getTaskData(state.taskData[taskIndex])
       }
     },
 
@@ -68,14 +68,16 @@ export const taskSlice = createSlice({
     addUpdate_intoTask(state, action: PayloadAction<IUpdate>) {
       if (state.currentTask) {
         const payload = action.payload
-        const projectIndex = state.taskData.findIndex(
-          t => t.code === state.currentTask,
+        const taskIndex = state.taskData.findIndex(
+          t => t.code === state.currentTask.code,
         )
 
-        const project = state.taskData[projectIndex]
-        const projectUpdates = project.updates
-        if (!projectUpdates.includes(payload)) {
-          projectUpdates.push(payload)
+        if (taskIndex > -1) {
+          const task = state.taskData[taskIndex]
+          const taskUpdates = task.updates
+          if (!taskUpdates.includes(payload)) {
+            taskUpdates.push(payload)
+          }
         }
       }
     },

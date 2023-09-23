@@ -4,13 +4,13 @@ import {
   IProject, IProjectSlice,
 } from '@/interfaces/project.interface'
 import { HYDRATE } from 'next-redux-wrapper'
-import { emptyProject } from '@utils/emptyObjects'
 import { ITask } from '@interfaces/task.interface'
 import { IUpdate } from '@interfaces/update.interface'
+import { emptyProjectData, getProjectData } from '@utils/emptyData'
 
 // Initial state
 const initialState: IProjectSlice = {
-  currentProject: emptyProject.code,
+  currentProject: emptyProjectData,
   projectData: [],
 }
 
@@ -22,12 +22,17 @@ export const projectSlice = createSlice({
     setProjectData(state, action: PayloadAction<IProject[]>) {
       const payload = action.payload
       state.projectData = state.projectData.concat(payload)
-      state.currentProject = payload[0].code
+      state.currentProject = getProjectData(payload[0])
     },
 
     setCurrentProject(state, action: PayloadAction<string>) {
       const payload = action.payload
-      state.currentProject = payload
+      const projectIndex = state.projectData.findIndex(
+        (p) => p.code === payload,
+      )
+      if (projectIndex === -1) {
+        state.currentProject = getProjectData(state.projectData[projectIndex])
+      }
     },
 
     addProject(state, action: PayloadAction<IProject>) {
@@ -40,7 +45,7 @@ export const projectSlice = createSlice({
       )
       if (projectIndex === -1) {
         state.projectData.push(payload)
-        state.currentProject = payload.code
+        state.currentProject = getProjectData(payload)
       }
     },
 
@@ -69,13 +74,14 @@ export const projectSlice = createSlice({
       if (state.currentProject) {
         const payload = action.payload
         const projectIndex = state.projectData.findIndex(
-          (p) => p.code === state.currentProject,
+          (p) => p.code === state.currentProject.code,
         )
 
         const project = state.projectData[projectIndex]
         const projectTasks = project.tasks
         if (!projectTasks.includes(payload)) {
           projectTasks.push(payload)
+          state.currentProject.tasks.push(payload.code)
         }
       }
     },
@@ -84,13 +90,14 @@ export const projectSlice = createSlice({
       if (state.currentProject) {
         const payload = action.payload
         const projectIndex = state.projectData.findIndex(
-          (p) => p.code === state.currentProject,
+          (p) => p.code === state.currentProject.code,
         )
 
         const project = state.projectData[projectIndex]
         const projectUpdates = project.updates
         if (!projectUpdates.includes(payload)) {
           projectUpdates.push(payload)
+          state.currentProject.updates.push(payload.code)
         }
       }
     },

@@ -14,7 +14,7 @@ export default function CreateProjectModal() {
   const dispatch = useDispatch()
   const breakpoint = useWindowSize().breakpoint
   const { translate } = useContext(LanguageContext)
-  const { activeModal } = useContext(UIContext)
+  const { activeModal, switchTab } = useContext(UIContext)
 
   const [open, setOpen] = useState(activeModal === 'create-project')
   const [formData, setFormData] = useState(emptyProject)
@@ -23,6 +23,7 @@ export default function CreateProjectModal() {
 
   const handleSubmit = () => {
     dispatch(addProject(formData))
+    switchTab(formData.code)
     handleClose()
   }
 
