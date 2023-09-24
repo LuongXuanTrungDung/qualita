@@ -26,7 +26,7 @@ export default function TaskColumn(props: colProps) {
 
   const taskColStyle: SxProps<Theme> = {
     width: '100%',
-    minHeight: { xs: '100%', sm: 200 },
+    minHeight: { xs: '100%', sm: 450 },
     mt: { xs: isFirstColumn ? 0 : 2, sm: 0 },
     mb: { xs: isLastColumn ? 2 : 0, sm: 0 },
     ml: { xs: 0, sm: isFirstColumn ? 0 : 2 },

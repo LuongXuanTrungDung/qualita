@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add'
 
 import { UIContext } from "@contexts/useUI";
 import { LanguageContext } from "@contexts/useLanguage";
-import KanbanBoard from "@components/kanban/board";
+import KanbanBoard from "@components/project/kanban/board";
 import { ProjectContext } from "@contexts/useProject";
 
 import DefaultSpace from "./defaultSpace";

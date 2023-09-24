@@ -24,12 +24,12 @@ export default function SettingsContent() {
       { icon: <DarkModeIcon sx={{ mr: 0.5 }} />, mode: 'dark' },
       { icon: <DevicesIcon sx={{ mr: 0.5 }} />, mode: null }
     ]
-    const btnLabel = (m: SwitchModeType) => m ? 'settings:' +  m : 'common:default'
+    const btnLabel = (m: SwitchModeType) => m ? 'settings:' + m : 'common:default'
 
     return buttons.map((btn, btnIndex) => (
       <Button onClick={() => switchMode(btn.mode as SwitchModeType)} key={btnIndex}>
         {btn.icon}
-        <Typography sx={{ ml: 0.5 }}>{translate(btnLabel(btn.mode as SwitchModeType))}</Typography>
+        <Typography sx={{ ml: 0.5, py: 1 }}>{translate(btnLabel(btn.mode as SwitchModeType))}</Typography>
       </Button>
     ))
   }

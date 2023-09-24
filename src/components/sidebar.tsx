@@ -1,14 +1,15 @@
-import { Drawer, IconButton, Stack, SxProps, Theme, Typography } from "@mui/material";
+import { Drawer, IconButton, Stack, SxProps} from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import { useContext, useState } from "react";
 import { UIContext } from "@contexts/useUI";
 import SettingsSidebar from "./settings/settings.sidebar";
+import ProjectSidebar from "./project/project.sidebar";
 
 export default function Sidebar() {
   const [shown, setShown] = useState(false)
-  const { activeTab, stepList } = useContext(UIContext)
+  const { activeTab } = useContext(UIContext)
 
   const drawerWidth = shown ? 250 : 0
   const toggleBtnStyle: SxProps = {
@@ -26,8 +27,7 @@ export default function Sidebar() {
       case 'default':
         return <></>
       default:
-        const steps = stepList.map((step, stepIndex) => <Typography key={stepIndex}>{step}</Typography>)
-        return steps
+        return <ProjectSidebar />
     }
   }
 

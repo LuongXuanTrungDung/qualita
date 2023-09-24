@@ -5,29 +5,37 @@ import { TextField, Button, Stack, Box, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 import {
+  SelectProject,
   editProject,
-  selectProject,
-  toggleProjectModal,
 } from '@/store/project.slice'
 import { LanguageContext } from '@contexts/useLanguage'
 import useWindowSize from '@hooks/useWindowSize'
-import DialogWrapper from '@components/common/dialog.wrapper'
+import ModalWrapper from '@components/common/modal.wrapper'
+import { UIContext } from '@contexts/useUI'
+import { emptyProject } from '@utils/emptyObjects'
+import { ProjectContext } from '@contexts/useProject'
 
 export default function EditProjectModal() {
   const dispatch = useDispatch()
-  const control = useSelector(selectProject).showEditModal
-  const toEditProject = useSelector(selectProject).currentProject
   const breakpoint = useWindowSize().breakpoint
-  const [formData, setFormData] = useState(toEditProject)
+
+  const [open, setOpen] = useState(false)
+  const { activeModal, closeModal, openModal } = useContext(UIContext)
+  useEffect(() => setOpen(activeModal === 'edit-project'), [activeModal])
+
+  const currentProject = useSelector(SelectProject).currentProject
+  const { findProject } = useContext(ProjectContext)
+  const [formData, setFormData] = useState(emptyProject)
   const { translate } = useContext(LanguageContext)
 
   useEffect(() => {
-    setFormData(toEditProject)
-  }, [toEditProject])
+    const serializedProject = findProject(currentProject.code)
+    setFormData(serializedProject)
+  }, [currentProject, findProject])
 
   const handleClose = () => {
-    setFormData(toEditProject)
-    dispatch(toggleProjectModal('edit'))
+    setFormData(emptyProject)
+    closeModal()
   }
 
   const handleSubmit = () => {
@@ -35,43 +43,23 @@ export default function EditProjectModal() {
     handleClose()
   }
 
-  const renderActions = (
-    <>
-      <IconButton
-        sx={{ marginRight: 'auto' }}
-        color="error"
-        onClick={() => dispatch(toggleProjectModal('delete'))}
-      >
-        <DeleteIcon />
-      </IconButton>
-      <Box sx={{ marginLeft: 'auto' }}>
+  return (
+    <ModalWrapper
+      controlState={open}
+      closeFn={handleClose}
+      title={translate('form:project.editTitle')}
+      confirm={
         <Button variant="contained" type="submit" onClick={handleSubmit}>
           {translate('common:Edit')}
         </Button>
-        <Button onClick={handleClose}>{translate('common:Cancel')}</Button>
-      </Box>
-    </>
-  )
-
-  return (
-    <DialogWrapper
-      controlValue={control}
-      closeFn={handleClose}
-      title={translate('form:project.editTitle') + ' ' + toEditProject.name}
-      actions={renderActions}
+      }
     >
-      <input type="hidden" name="project-title" value={formData.id} />
       <Stack
-        spacing={2}
-        useFlexGap
-        flexWrap="wrap"
-        alignItems="center"
-        justifyContent="center"
         direction={breakpoint === 'xs' ? 'column' : 'row'}
+        sx={{ pb: 2 }}
       >
         <TextField
-          autoFocus
-          margin="dense"
+          sx={{ mr: { xs: 0, sm: 2 }, mb: { xs: 2, sm: 0 }, width: '100%' }}
           name="project-title"
           label={translate('form:project.nameInput')}
           type="text"
@@ -80,8 +68,7 @@ export default function EditProjectModal() {
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
         <TextField
-          autoFocus
-          margin="dense"
+          sx={{ ml: { xs: 0, sm: 2 }, mt: { xs: 2, sm: 0 }, width: '100%' }}
           name="project-code"
           label={translate('form:project.codeInput')}
           type="text"
@@ -90,26 +77,25 @@ export default function EditProjectModal() {
           onChange={(e) =>
             setFormData({
               ...formData,
-              code: e.target.value.toLocaleUpperCase(),
+              code: e.target.value,
             })
           }
         />
       </Stack>
       <TextField
+        sx={{ pt: 2, width: '100%' }}
         autoFocus
         multiline
-        rows={4}
-        margin="dense"
+        rows={8}
         name="project-desc"
         label={translate('form:project.descInput')}
         type="text"
-        fullWidth
         variant="standard"
-        value={formData.description}
+        value={formData.description ? formData.description : ''}
         onChange={(e) =>
           setFormData({ ...formData, description: e.target.value })
         }
       />
-    </DialogWrapper>
+    </ModalWrapper>
   )
 }

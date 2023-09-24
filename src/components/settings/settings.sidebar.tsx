@@ -21,9 +21,9 @@ export default function SettingsSidebar() {
 
   return (
     <List>
-      <ListItem disablePadding><ListItemButton>{translate('settings:ui')}</ListItemButton></ListItem>
+      <ListItem><ListItemButton>{translate('settings:ui')}</ListItemButton></ListItem>
       <Divider />
-      <ListItem disablePadding>
+      <ListItem>
         <ListItemButton onClick={handleClick}>
           <input
             ref={hiddenInputRef}
@@ -36,7 +36,7 @@ export default function SettingsSidebar() {
           <ListItemText primary={translate('settings:import')} />
         </ListItemButton>
       </ListItem>
-      <ListItem disablePadding>
+      <ListItem>
         <ListItemButton onClick={exportData}>
           <ListItemIcon><FileDownloadIcon /></ListItemIcon>
           <ListItemText primary={translate('settings:export')} />
