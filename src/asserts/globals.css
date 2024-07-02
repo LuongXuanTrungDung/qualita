@@ -16,7 +16,20 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
 body {
+  margin: 0;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
